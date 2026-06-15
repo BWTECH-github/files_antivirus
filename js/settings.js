@@ -23,7 +23,13 @@ var antivirusSettings = antivirusSettings || {
 
 	renderRow : function(data){
 		var row = $('<tr />').data('id', data.id).appendTo($('#antivirus-statuses'));
-		$('<td class="icon-checkmark shaded" />').appendTo(row);
+		$('<td class="icon-checkmark shaded" />')
+			.attr('role', 'button')
+			.attr('tabindex', '0')
+			.attr('aria-label', t('files_antivirus', 'Save rule'))
+			.attr('title', t('files_antivirus', 'Save rule'))
+			.attr('aria-disabled', 'true')
+			.appendTo(row);
 		antivirusSettings.renderSelect(
 				$('<td class="status-type" />').appendTo(row),
 				{options : antivirusSettings.types, current : data.status_type}
@@ -37,7 +43,12 @@ var antivirusSettings = antivirusSettings || {
 				{ options : antivirusSettings.statuses, current : data.status }
 		);
 
-		$('<td class="icon-delete" />').appendTo(row);
+		$('<td class="icon-delete" />')
+			.attr('role', 'button')
+			.attr('tabindex', '0')
+			.attr('aria-label', t('files_antivirus', 'Delete rule'))
+			.attr('title', t('files_antivirus', 'Delete rule'))
+			.appendTo(row);
 	},
 
 	onSave : function(){
@@ -56,7 +67,7 @@ var antivirusSettings = antivirusSettings || {
 				if (response && response.id){
 					row.data('id', response.id);
 				}
-				node.addClass('shaded');
+				node.addClass('shaded').attr('aria-disabled', 'true');
 			}
 		);
 	},
@@ -71,7 +82,7 @@ var antivirusSettings = antivirusSettings || {
 			.on('blur', function(){
 				var newValue = $(this).val();
 				if (newValue !== current){
-					$(node).parents('tr').first().find('td.icon-checkmark').removeClass('shaded');
+					$(node).parents('tr').first().find('td.icon-checkmark').removeClass('shaded').attr('aria-disabled', 'false');
 				}
 				$(this).remove();
 				$(node).text(newValue);
@@ -112,7 +123,7 @@ var antivirusSettings = antivirusSettings || {
 	renderSelect : function(parent, data){
 		var select = $('<select />')
 				.on('change', function(){
-					$(this).parents('tr').first().find('td.icon-checkmark').removeClass('shaded');
+					$(this).parents('tr').first().find('td.icon-checkmark').removeClass('shaded').attr('aria-disabled', 'false');
 				});
 		for (var i=0; i<data.options.length; i++){
 			var option = $('<option />');
@@ -242,6 +253,13 @@ $(document).ready(function() {
 	});
 	$('#antivirus-statuses tbody').on('click', 'td.icon-delete', antivirusSettings.deleteRow);
 	$('#antivirus-statuses tbody').on('click', 'td.icon-checkmark', antivirusSettings.onSave);
+	// Tastaturbedienung fuer die als Buttons fungierenden Icon-Zellen (Enter/Space)
+	$('#antivirus-statuses tbody').on('keydown', 'td.icon-checkmark, td.icon-delete', function(event){
+		if (event.keyCode === 13 || event.keyCode === 32) {
+			event.preventDefault();
+			$(this).trigger('click');
+		}
+	});
 	$("#av_mode").change(function () {
 		var str = $("#av_mode").val();
 		av_mode_show_options(str);

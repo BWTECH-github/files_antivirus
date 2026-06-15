@@ -20,7 +20,8 @@
 }
 
 .shaded{
-	opacity: .3;
+	/* WCAG 1.4.11: 0.55 statt 0.3, damit das schwarze Haekchen-Glyph >=3:1 Kontrast gegen Weiss erreicht */
+	opacity: .55;
 }
 
 .section-antivirus .spoiler{
@@ -41,4 +42,11 @@
 
 .section-antivirus h3{
 	padding: 7px 0;
+}
+
+/* WCAG 2.4.7: sichtbarer Fokus fuer die als Buttons fungierenden Icon-Zellen */
+#antivirus-statuses td.icon-checkmark:focus,
+#antivirus-statuses td.icon-delete:focus {
+	outline: 2px solid var(--color-primary-element, #1d2d44);
+	outline-offset: -2px;
 }
