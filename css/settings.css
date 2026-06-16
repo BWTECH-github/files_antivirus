@@ -4,7 +4,8 @@
 	margin-top: 14px;
 }
 
-.section-antivirus label {
+.section-antivirus label,
+.section-antivirus .av_display_label {
 	display: inline-block;
 	width: 280px;
 	margin-right: 6px;
