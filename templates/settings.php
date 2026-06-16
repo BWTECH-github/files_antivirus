@@ -58,13 +58,13 @@ script('files_antivirus', 'settings');
 				<input type="text" id="av_mawgw_response_header" name="avResponseHeader" value="<?php p($_['avResponseHeader']); ?>" />
 			</p>
 			<p class="av_path">
-				<label for="av_path"><?php p($l->t('Path to clamscan')); ?></label>
-				<span id="av_path"><?php p($_['avPath']); ?></span>
+				<span id="av_path_label" class="av_display_label"><?php p($l->t('Path to clamscan')); ?></span>
+				<span id="av_path" role="text" aria-labelledby="av_path_label"><?php p($_['avPath']); ?></span>
 				<em>You can change this value in the <a target="_blank" rel="noreferrer" href="https://doc.owncloud.com/server/admin_manual/configuration/server/config_apps_sample_php_parameters.html">system configuration ↗</a>.</em>
 			</p>
 			<p class="av_path">
-				<label for="av_cmd_options"><?php p($l->t('Extra command line options (comma-separated)')); ?></label>
-				<span id="av_cmd_options"><?php p($_['avCmdOptions']); ?></span>
+				<span id="av_cmd_options_label" class="av_display_label"><?php p($l->t('Extra command line options (comma-separated)')); ?></span>
+				<span id="av_cmd_options" role="text" aria-labelledby="av_cmd_options_label"><?php p($_['avCmdOptions']); ?></span>
 				<em>You can change this value in the <a target="_blank" rel="noreferrer" href="https://doc.owncloud.com/server/admin_manual/configuration/server/config_apps_sample_php_parameters.html">system configuration ↗</a>.</em>
 			</p>
 			<p class="av_stream_max_length">
