@@ -37,7 +37,6 @@ The App is not complete yet, the following works/is done:
 
 * ClamAV (Binaries or a server running ClamAV in daemon mode)
 
-
 ## Install
 
 * Install and enable the App
@@ -61,7 +60,6 @@ The IP address needs to be setup in the configuration - see above
 
 The request service for clamav has to be set to 'avscan' and the response header to 'X-Infection-Found'
 
-
 ### Run with Kaspersky
 
 Kaspersky provides docker images as well (https://box.kaspersky.com/d/c8d8577dc2494256b45e/)
@@ -73,12 +71,10 @@ see https://support.kaspersky.com/ScanEngine/1.0/en-US/201151.htm
 
 The request service for clamav has to be set to 'req' and the response header to 'X-Virus-ID'
 
-
 NOTE: The older versions of KAV did not send back the virus/infection name in an icap header.
 
 In v2.0.0 the header to transport the virus can be configured. Default: No header is sent.
 see https://support.kaspersky.com/ScanEngine/1.0/en-US/201214.htm
-
 
 ### Run with FortiSandbox in ICAP Mode
 
@@ -87,7 +83,6 @@ Select 'Fortinet' from the dropdown.
 The request service for FortiSandbox has to be set to 'respmod' and the response header to 'X-Virus-Name'.
 
 Fortinet provides product trials of FortiSandbox, please have a look at [Fortinet](https://www.fortinet.com/de/products/sandbox/fortisandbox).
-
 
 ### Run with McAfee Web Gateway 10.x and higher in ICAP Mode
 
