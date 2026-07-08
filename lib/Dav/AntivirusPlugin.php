@@ -15,6 +15,7 @@ namespace OCA\Files_Antivirus\Dav;
 
 use OCA\DAV\Upload\FutureFile;
 use OCA\Files_Antivirus\AppInfo\Application;
+use OCA\Files_Antivirus\RequestHelper;
 use OCA\Files_Antivirus\Resource;
 use OCA\Files_Antivirus\Status;
 use OCP\AppFramework\QueryException;
@@ -91,6 +92,14 @@ class AntivirusPlugin extends ServerPlugin {
 			$finalSize = $sourceNode->getSize();
 			$requestHelper = $this->application->getContainer()->query('RequestHelper');
 			$requestHelper->setSizeForPath($destination, $finalSize);
+			// Zusätzlich pfadunabhängig cachen: bei MOVEs in empfangene Shares
+			// kann RequestHelper den Empfänger-DAV-Pfad nicht aus dem internen
+			// Owner-Storage-Pfad rekonstruieren (Mount-Name/Owner-Pfad differieren),
+			// sonst bliebe der Assembly-Scan aus (fail-open)
+			$requestHelper->setSizeForPath(
+				RequestHelper::MOVE_SIZE_PREFIX . \basename($destination),
+				$finalSize
+			);
 		}
 		return true;
 	}
