@@ -24,6 +24,12 @@ use \OCP\IRequest;
  */
 class RequestHelper {
 	/**
+	 * Präfix für den pfadunabhängigen Fallback-Cache-Key beim Assembly-MOVE.
+	 * NUL-Byte im Präfix, damit kein realer Dateipfad kollidieren kann.
+	 */
+	public const MOVE_SIZE_PREFIX = "move-size\0";
+
+	/**
 	 * @var  IRequest
 	 */
 	private $request;
@@ -93,6 +99,15 @@ class RequestHelper {
 			if ($cachedSize > 0) {
 				return $cachedSize;
 			}
+			// Bei Uploads in empfangene Shares (Jail auf der Owner-Storage) weicht
+			// der interne Pfad vom Empfänger-DAV-Pfad ab, unter dem beforeMove die
+			// Größe cached — Fallback über den Zieldateinamen
+			$cachedSize = $this->getCache()->get(
+				self::MOVE_SIZE_PREFIX . \basename($cleanedPath)
+			);
+			if ($cachedSize > 0) {
+				return $cachedSize;
+			}
 		}
 
 		// Are we uploading anything?
@@ -105,21 +120,54 @@ class RequestHelper {
 			return null;
 		}
 
-		if ($isRemoteScript) {
-			// v1 && v2 Chunks are not scanned
-			if (\strpos($path, 'uploads/') === 0) {
+		// v1 && v2 Chunks are not scanned
+		// gilt auch für public.php: Public-Link-Web-Uploads nutzen dasselbe
+		// Legacy-Chunking, gescannt wird erst die assemblierte Datei
+		if (\strpos($path, 'uploads/') === 0) {
+			return null;
+		}
+
+		if (\OC_FileChunking::isWebdavChunk()) {
+			if (\strpos($path, 'cache/') === 0) {
 				return null;
 			}
-
-			if (\OC_FileChunking::isWebdavChunk()
-				&& \strpos($path, 'cache/') === 0
-			) {
-				return null;
+			// Assembly beim finalen Legacy-Chunk: das av_max_file_size-Limit muss
+			// gegen die Gesamtgröße geprüft werden, nicht gegen den letzten Chunk.
+			// WICHTIG: dafür NICHT den client-kontrollierten OC-Total-Length-Header
+			// verwenden — ein gelogener großer Wert würde den Scan überspringen
+			// (av_max_file_size-Bypass). Stattdessen die servergezählte Summe der
+			// tatsächlich gespeicherten Chunks.
+			$totalLength = $this->getServerSideChunkTotal();
+			if ($totalLength > 0) {
+				return $totalLength;
 			}
 		}
 		$uploadSize = (int)$this->request->getHeader('CONTENT_LENGTH');
 
 		return $uploadSize;
+	}
+
+	/**
+	 * Servergezählte Gesamtgröße des laufenden Legacy-Chunk-Transfers
+	 * (Summe der bereits gespeicherten Chunks, beim Assembly = Gesamtdatei).
+	 *
+	 * @return int 0, wenn der Transfer nicht bestimmbar ist
+	 */
+	private function getServerSideChunkTotal() {
+		try {
+			$requestPath = \rawurldecode($this->request->getPathInfo() ?: '');
+		} catch (\Exception $e) {
+			$requestPath = '';
+		}
+		if ($requestPath === '') {
+			return 0;
+		}
+		$info = \OC_FileChunking::decodeName(\basename($requestPath));
+		if (empty($info['transferid']) || empty($info['chunkcount'])) {
+			return 0;
+		}
+		$chunkHandler = new \OC_FileChunking($info);
+		return (int)$chunkHandler->getCurrentSize();
 	}
 
 	/**
