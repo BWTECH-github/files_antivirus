@@ -18,9 +18,9 @@ Please note that enabling this application can impact system performance as addi
 
 This is a PHP 8.4 fork maintained by BW-Tech GmbH for owncloud.online.
 	</description>
-	<website>https://github.com/GrossLukas/files_antivirus</website>
-	<bugs>https://github.com/GrossLukas/files_antivirus/issues</bugs>
-	<repository type="git">https://github.com/GrossLukas/files_antivirus.git</repository>
+	<website>https://github.com/BWTECH-github/files_antivirus</website>
+	<bugs>https://github.com/BWTECH-github/files_antivirus/issues</bugs>
+	<repository type="git">https://github.com/BWTECH-github/files_antivirus.git</repository>
 	<summary>Protect users from viruses and other malicious software</summary>
 	<screenshot>https://raw.githubusercontent.com/owncloud/screenshots/master/files_antivirus/owncloud-app-anti-virus.jpg</screenshot>
 	<screenshot>https://raw.githubusercontent.com/owncloud/screenshots/master/files_antivirus/owncloud-app-anti-virus2.png</screenshot>
