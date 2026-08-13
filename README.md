@@ -1,6 +1,6 @@
-# ownCloud Antivirus App   
+# owncloud.online Antivirus App   
 
-files_antivirus is an antivirus app for [ownCloud](https://github.com/owncloud) based on [ClamAV](http://www.clamav.net).
+files_antivirus is an antivirus app for [owncloud.online](https://owncloud.online) based on [ClamAV](http://www.clamav.net).
 
 ## Details
 
@@ -8,11 +8,6 @@ The idea is to check for virus at upload-time, notifying the user (on screen and
 remove the file if it's infected.
 
 ## QA metrics on master branch:
-
-[![Build Status](https://drone.owncloud.com/api/badges/owncloud/files_antivirus/status.svg?branch=master)](https://drone.owncloud.com/owncloud/files_antivirus)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=owncloud_files_antivirus&metric=alert_status)](https://sonarcloud.io/dashboard?id=owncloud_files_antivirus)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=owncloud_files_antivirus&metric=security_rating)](https://sonarcloud.io/dashboard?id=owncloud_files_antivirus)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=owncloud_files_antivirus&metric=coverage)](https://sonarcloud.io/dashboard?id=owncloud_files_antivirus)
 
 ## Status
 
@@ -40,11 +35,11 @@ The App is not complete yet, the following works/is done:
 ## Install
 
 * Install and enable the App
-* Go to Admin Panel and [configure](https://doc.owncloud.com/server/next/admin_manual/configuration/server/virus-scanner-support.html) the App
+* Go to Admin Panel and [configure](https://docs.owncloud.online) the App
 
 ## Enterprise Feature: ICAP Antivirus integration
 
-The Files Antivirus app can support the [ICAP](https://tools.ietf.org/html/rfc3507) protocol if you are using the ownCloud Enterprise Edition.
+The Files Antivirus app can support the [ICAP](https://tools.ietf.org/html/rfc3507) protocol if you are using the owncloud.online Enterprise Edition.
 
 Using the ICAP mode requires a valid enterprise license. If no license key is present, it will trigger the grace period to obtain a valid key.
 After the expiration of the grace period / license key, the files_antivirus app will be disabled.
