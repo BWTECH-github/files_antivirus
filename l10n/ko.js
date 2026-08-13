@@ -15,7 +15,7 @@ OC.L10N.register(
     "Virus %s is detected in the file. Upload cannot be completed." : "파일에서 %s 바이러스가 탐지되었습니다. 업로드할 수 없습니다.",
     "Saved" : "저장됨",
     "Virus detected! Can't upload the file %s" : "바이러스가 감지되었습니다! 파일 %s을(를) 업로드할 수 없습니다",
-    "Either the ownCloud antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "ownCloud 안티바이러스 앱이 잘못 설정되었거나 외부 안티바이러스 서비스에 접근할 수 없습니다. 시스템 관리자에게 연락해주세요!",
+    "Either the antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "owncloud.online 안티바이러스 앱이 잘못 설정되었거나 외부 안티바이러스 서비스에 접근할 수 없습니다. 시스템 관리자에게 연락해주세요!",
     "Malware detected" : "멀웨어 감지됨",
     "A malware or virus was detected, your upload was denied. In doubt or for details please contact your system administrator." : "멀웨어 또는 바이러스가 감지되어 업로드가 거절되었습니다. 시스템 관리자에게 연락하여 자세히 알아보세요.",
     "Greetings {user}," : "{user}님, 환영합니다",

@@ -15,7 +15,7 @@ OC.L10N.register(
     "Virus %s is detected in the file. Upload cannot be completed." : "ۋىرۇس% s ھۆججەتتە بايقالغان. يۈكلەشنى تاماملىغىلى بولمايدۇ.",
     "Saved" : "ساقلاندى",
     "Virus detected! Can't upload the file %s" : "ۋىرۇس بايقالدى! % S ھۆججىتىنى يۈكلىيەلمىدى",
-    "Either the ownCloud antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "ياكى ئۆزىنىڭ Cloud ۋىرۇس تازىلاش دېتالى خاتا تەڭشەلگەن ياكى سىرتقى ۋىرۇسخور مۇلازىمىتىنى زىيارەت قىلغىلى بولمايدۇ. سىستېما باشقۇرغۇچى بىلەن ئالاقىلىشىڭ!",
+    "Either the antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "ياكى ئۆزىنىڭ Cloud ۋىرۇس تازىلاش دېتالى خاتا تەڭشەلگەن ياكى سىرتقى ۋىرۇسخور مۇلازىمىتىنى زىيارەت قىلغىلى بولمايدۇ. سىستېما باشقۇرغۇچى بىلەن ئالاقىلىشىڭ!",
     "Malware detected" : "زىيانداش دېتاللار بايقالدى",
     "A malware or virus was detected, your upload was denied. In doubt or for details please contact your system administrator." : "يامان غەرەزلىك يۇمشاق دېتال ياكى ۋىرۇس بايقالدى ، يۈكلىنىشىڭىز رەت قىلىندى. گۇماندا ياكى تەپسىلاتلار ئۈچۈن سىستېما باشقۇرغۇچى بىلەن ئالاقىلىشىڭ.",
     "Greetings {user}," : "سالام {ئىشلەتكۈچى},",

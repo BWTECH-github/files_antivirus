@@ -15,7 +15,7 @@ OC.L10N.register(
     "Virus %s is detected in the file. Upload cannot be completed." : "Te kartela u zbulua virusi %s. Ngarkimi s’mund të plotësohet.",
     "Saved" : "U ruajt",
     "Virus detected! Can't upload the file %s" : "U zbulua virus! Kartela %s s’mund të ngarkohet",
-    "Either the ownCloud antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "Ose aplikacioni antivirus i ownCloud-it është formësuar gabim, ose s’kapet dot shërbimi i jashtëm antivirus. Ju lutemi, me përgjegjësin e sistemit tuaj!",
+    "Either the antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "Ose aplikacioni antivirus i owncloud.online-it është formësuar gabim, ose s’kapet dot shërbimi i jashtëm antivirus. Ju lutemi, me përgjegjësin e sistemit tuaj!",
     "Malware detected" : "U kap malware",
     "A malware or virus was detected, your upload was denied. In doubt or for details please contact your system administrator." : "U pikas një “malware” ose virus, ngarkimi juaj s’u pranua. Nëse keni dyshime, ose për hollësi, ju lutemi, lidhuni me përgjegjësin e sistemit tuaj.",
     "Greetings {user}," : "Përshëndetje {user},",

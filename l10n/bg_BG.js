@@ -15,7 +15,7 @@ OC.L10N.register(
     "Virus %s is detected in the file. Upload cannot be completed." : "Във файла е открит вирус %s. Качването няма да бъде завършено.",
     "Saved" : "Запазено",
     "Virus detected! Can't upload the file %s" : "Открит е вирус! Неуспешно качване на файла %s",
-    "Either the ownCloud antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "Или антивирусното приложение на ownCloud е неправилно конфигурирано, или външната антивирусна услуга не е достъпна. Моля, обърнете се към системния администратор!",
+    "Either the antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "Или антивирусното приложение на owncloud.online е неправилно конфигурирано, или външната антивирусна услуга не е достъпна. Моля, обърнете се към системния администратор!",
     "Malware detected" : "Открит е зловреден софтуер",
     "A malware or virus was detected, your upload was denied. In doubt or for details please contact your system administrator." : "Открит е зловреден софтуер или вирус, качването е отказано. При съмнения или за подробности се свържете със системния администратор.",
     "Greetings {user}," : "Поздрави {user},",

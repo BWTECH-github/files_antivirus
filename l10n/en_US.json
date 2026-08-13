@@ -13,7 +13,7 @@
     "Virus %s is detected in the file. Upload cannot be completed." : "Virus %s is detected in the file. Upload cannot be completed.",
     "Saved" : "Saved",
     "Virus detected! Can't upload the file %s" : "Virus detected! Can't upload the file %s",
-    "Either the ownCloud antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "Either the ownCloud antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!",
+    "Either the antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!" : "Either the owncloud.online antivirus app is misconfigured or the external antivirus service is not accessible. Please reach out to your system administrator!",
     "Malware detected" : "Malware detected",
     "A malware or virus was detected, your upload was denied. In doubt or for details please contact your system administrator." : "A malware or virus was detected, your upload was denied. In doubt or for details please contact your system administrator.",
     "Greetings {user}," : "Hi {user},",
