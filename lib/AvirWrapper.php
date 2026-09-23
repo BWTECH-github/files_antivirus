@@ -131,8 +131,13 @@ class AvirWrapper extends Wrapper {
 				$this->logger->logException($e, ['app' => 'files_antivirus']);
 				throw new ForbiddenException(L10n::getEnduserNotification($this->l10n), true, $e);
 			} catch (\Exception $e) {
+				// Sicherheit vor Verfügbarkeit: Vorher wurde hier nur gewarnt und
+				// der UNGEPRÜFTE Datenstrom zurückgegeben - jeder Fehler beim
+				// Aufsetzen des Scans ließ die Datei ohne Prüfung durch.
 				$message = 	\implode(' ', [ __CLASS__, __METHOD__, $e->getMessage()]);
-				$this->logger->warning($message, ['app' => 'files_antivirus']);
+				$this->logger->error($message, ['app' => 'files_antivirus']);
+				@\fclose($stream);
+				throw new ForbiddenException(L10n::getEnduserNotification($this->l10n), true, $e);
 			}
 		}
 		return $stream;
@@ -176,6 +181,28 @@ class AvirWrapper extends Wrapper {
 					[$status->getDetails()]
 				),
 				false
+			);
+		}
+
+		// Nicht infiziert heißt noch nicht sauber: SCANRESULT_UNCHECKED entsteht,
+		// wenn der Scanner mittendrin ausfällt (clamd abgeschossen, clamscan vom
+		// OOM-Killer beendet - Exit -1 -, Stream abgebrochen, keine passende
+		// Regel). Bisher ging die Datei dann ungeprüft durch; am Redesign-Server
+		// passierte genau das unter Speicherdruck (23.09.2026). Jetzt wird der
+		// Upload abgewiesen: lieber ein wiederholbarer Upload als eine
+		// ungeprüfte Datei im Bestand.
+		if ($status->getNumericStatus() !== Status::SCANRESULT_CLEAN) {
+			$this->logger->error(
+				'File could not be checked, upload refused. ' . $status->getDetails()
+				. ' Account: ' . $this->getOwner($path) . ' Path: ' . $path,
+				['app' => 'files_antivirus']
+			);
+			if ($shouldDelete) {
+				$this->unlink($path);
+			}
+			throw new FileContentNotAllowedException(
+				$this->l10n->t('The file could not be checked for viruses. Upload cannot be completed, please try again.'),
+				true
 			);
 		}
 	}

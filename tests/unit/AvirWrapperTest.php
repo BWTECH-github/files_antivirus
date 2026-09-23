@@ -138,6 +138,64 @@ class AvirWrapperTest extends TestBase {
 	}
 
 	/**
+	 * Scanner fällt mittendrin aus (Status bleibt ungeprüft): Upload abweisen,
+	 * nicht ungeprüft durchlassen.
+	 */
+	public function testUncheckedWriteIsRefused(): void {
+		$this->expectException(FileContentNotAllowedException::class);
+
+		$wrapper = $this->getWrapperWithScanner($this->uncheckedScanner());
+		$fd = $wrapper->fopen('unchecked stream', 'w+');
+		@\fwrite($fd, 'harmless data');
+		@\fclose($fd);
+	}
+
+	public function testUncheckedFilePutContentsIsRefused(): void {
+		$this->expectException(ForbiddenException::class);
+
+		$wrapper = $this->getWrapperWithScanner($this->uncheckedScanner());
+		$wrapper->file_put_contents('unchecked put', 'harmless data');
+	}
+
+	/**
+	 * Unerwarteter Fehler beim Aufsetzen des Scans: früher kam der ungeprüfte
+	 * Datenstrom zurück, jetzt eine Ablehnung.
+	 */
+	public function testScannerSetupFailureIsRefused(): void {
+		$this->expectException(ForbiddenException::class);
+
+		$scanner = $this->createMock(\OCA\Files_Antivirus\Scanner\IScanner::class);
+		$scanner->method('initScanner')->willThrowException(new \RuntimeException('boom'));
+		$wrapper = $this->getWrapperWithScanner($scanner);
+		$wrapper->fopen('setup failure', 'w+');
+	}
+
+	private function uncheckedScanner(): \OCA\Files_Antivirus\Scanner\IScanner {
+		// Status ist final; ein frischer Status steht auf SCANRESULT_UNCHECKED -
+		// genau das, was ein abgebrochener Scan zurückgibt.
+		$status = new \OCA\Files_Antivirus\Status();
+		self::assertSame(\OCA\Files_Antivirus\Status::SCANRESULT_UNCHECKED, $status->getNumericStatus());
+		$scanner = $this->createMock(\OCA\Files_Antivirus\Scanner\IScanner::class);
+		$scanner->method('completeAsyncScan')->willReturn($status);
+		return $scanner;
+	}
+
+	private function getWrapperWithScanner($scanner): AvirWrapper {
+		$factory = $this->getMockBuilder(\OCA\Files_Antivirus\ScannerFactory::class)
+			->disableOriginalConstructor()
+			->getMock();
+		$factory->method('getScanner')->willReturn($scanner);
+		return new AvirWrapper([
+			'storage' => new Temporary([]),
+			'appConfig' => $this->config,
+			'scannerFactory' => $factory,
+			'l10n' => $this->l10n,
+			'logger' => $this->container->query('Logger'),
+			'requestHelper' => $this->requestHelper,
+		]);
+	}
+
+	/**
 	 * @throws QueryException
 	 */
 	private function getWrapper(): AvirWrapper {
