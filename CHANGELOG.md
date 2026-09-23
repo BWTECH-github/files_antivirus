@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.7] - 2026-09-23
+
+### Security
+
+- Große Dateien werden abschnittsweise gescannt (av_stream_max_length). Bisher entschied nur der LETZTE Abschnitt: fiel der Scanner in einem früheren Abschnitt aus, oder brach der Datenstrom mitten im Abschnitt ab (der Neuaufbau schickt nur den letzten Block erneut), galt die Datei trotzdem als sauber. Jetzt bestimmt jeder Abschnitt ohne eindeutiges Ergebnis das Ergebnis der ganzen Datei, der Upload wird abgewiesen. Vier neue Tests (zwei davon rot gegen 1.3.6).
+- file_put_contents reicht die Wiederholbarkeit der Ablehnung durch.
+
 ## [1.3.6] - 2026-09-23
 
 ### Security

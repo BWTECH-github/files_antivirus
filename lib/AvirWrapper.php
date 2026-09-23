@@ -90,7 +90,7 @@ class AvirWrapper extends Wrapper {
 			$this->logger->logException($e, ['app' => 'files_antivirus']);
 			throw new ForbiddenException(L10n::getEnduserNotification($this->l10n), true, $e);
 		} catch (FileContentNotAllowedException $e) {
-			throw new ForbiddenException($e->getMessage(), false, $e);
+			throw new ForbiddenException($e->getMessage(), $e->getRetry(), $e);
 		} catch (\Exception $e) {
 			$message = 	\implode(' ', [ __CLASS__, __METHOD__, $e->getMessage()]);
 			$this->logger->warning($message, ['app' => 'files_antivirus']);

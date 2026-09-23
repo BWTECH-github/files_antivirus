@@ -47,6 +47,20 @@ abstract class AbstractScanner implements IScanner {
 	 * @var Status|null
 	 */
 	protected $infectedStatus = null;
+
+	/**
+	 * Große Dateien werden in Abschnitten von av_stream_max_length gescannt.
+	 * Lieferte ein Abschnitt kein eindeutiges Ergebnis (Scanner mittendrin
+	 * ausgefallen) oder gingen Daten beim Neuaufbau der Verbindung verloren,
+	 * steht das hier - und gilt für die ganze Datei. Vorher entschied nur der
+	 * letzte Abschnitt: fiel clamd in Abschnitt 1 aus und lief ab Abschnitt 2
+	 * wieder, galt eine 60-MB-Datei als sauber, obwohl ihre ersten 25 MB nie
+	 * geprüft wurden (Gegen-Review 23.09.2026).
+	 *
+	 * @var Status|null
+	 */
+	protected $failedStatus = null;
+
 	/**
 	 * @var int
 	 */
@@ -104,6 +118,11 @@ abstract class AbstractScanner implements IScanner {
 	public function getStatus(): Status {
 		if ($this->infectedStatus instanceof Status) {
 			return $this->infectedStatus;
+		}
+		// Ein Abschnitt ohne eindeutiges Ergebnis bestimmt das ganze Ergebnis
+		// (siehe $failedStatus) - sonst entschiede allein der letzte Abschnitt.
+		if ($this->failedStatus instanceof Status) {
+			return $this->failedStatus;
 		}
 		if ($this->status instanceof Status) {
 			return $this->status;
@@ -180,6 +199,7 @@ abstract class AbstractScanner implements IScanner {
 				['app' => 'files_antivirus']
 			);
 			$this->shutdownScanner();
+			$this->merkeOffenenAbschnitt();
 			$isReopenSuccessful = $this->retry();
 		} else {
 			$isReopenSuccessful = true;
@@ -193,9 +213,30 @@ abstract class AbstractScanner implements IScanner {
 					['app' => 'files_antivirus']
 				);
 			}
+			// Was bis hierher in den abgebrochenen Datenstrom ging, bekommt nie
+			// ein Urteil: der Neuaufbau schickt nur den letzten Block erneut.
+			// Also gilt die Datei als ungeprüft.
+			if (!$this->failedStatus instanceof Status) {
+				$this->failedStatus = new Status();
+			}
 			// retry on error
 			$isRetrySuccessful = $this->retry() && $this->writeRaw($data);
 			$this->isAborted = !$isRetrySuccessful;
+		}
+	}
+
+	/**
+	 * Nach dem Abschluss eines Abschnitts: war sein Ergebnis weder sauber noch
+	 * infiziert, für die ganze Datei festhalten (der erste solche Abschnitt
+	 * gewinnt, seine Details landen im Protokoll).
+	 */
+	private function merkeOffenenAbschnitt(): void {
+		if ($this->failedStatus instanceof Status || !$this->status instanceof Status) {
+			return;
+		}
+		$ergebnis = $this->status->getNumericStatus();
+		if ($ergebnis !== Status::SCANRESULT_CLEAN && $ergebnis !== Status::SCANRESULT_INFECTED) {
+			$this->failedStatus = clone $this->status;
 		}
 	}
 
