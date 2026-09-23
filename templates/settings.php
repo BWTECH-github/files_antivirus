@@ -60,12 +60,12 @@ script('files_antivirus', 'settings');
 			<p class="av_path">
 				<span id="av_path_label" class="av_display_label"><?php p($l->t('Path to clamscan')); ?></span>
 				<span id="av_path" role="text" aria-labelledby="av_path_label"><?php p($_['avPath']); ?></span>
-				<em>You can change this value in the <a target="_blank" rel="noreferrer" href="https://doc.owncloud.com/server/admin_manual/configuration/server/config_apps_sample_php_parameters.html">system configuration ↗</a>.</em>
+				<em>You can change this value in the system configuration (config.php).</em>
 			</p>
 			<p class="av_path">
 				<span id="av_cmd_options_label" class="av_display_label"><?php p($l->t('Extra command line options (comma-separated)')); ?></span>
 				<span id="av_cmd_options" role="text" aria-labelledby="av_cmd_options_label"><?php p($_['avCmdOptions']); ?></span>
-				<em>You can change this value in the <a target="_blank" rel="noreferrer" href="https://doc.owncloud.com/server/admin_manual/configuration/server/config_apps_sample_php_parameters.html">system configuration ↗</a>.</em>
+				<em>You can change this value in the system configuration (config.php).</em>
 			</p>
 			<p class="av_stream_max_length">
 				<label for="av_stream_max_length">
