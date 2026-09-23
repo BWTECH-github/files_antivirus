@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.5] - 2026-09-23
+
+### Fixed
+
+- Socket- und Daemon-Modus: ClamAV 1.x kann den Befehl VERSION abschalten (EnableVersionCommand no, Standard in Ubuntu 26.04) und antwortet mit „COMMAND UNAVAILABLE“. Der Scanner hielt den Dienst dann für nicht erreichbar, jeder Upload scheiterte mit 403. PING belegt die Erreichbarkeit, diese Antwort wird jetzt hingenommen.
+
 ## [1.3.4] - 2026-09-23
 
 ### Changed

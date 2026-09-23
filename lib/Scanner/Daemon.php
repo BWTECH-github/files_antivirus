@@ -80,7 +80,12 @@ class Daemon extends External {
 		// The response can vary, and it's difficult to predict the size of the response,
 		// but 500 bytes should be more than enough to fit the whole response.
 		// Just check that it starts with "ClamAV"
-		if (\strpos($versionResult, 'ClamAV') !== 0) {
+		// ClamAV ab 1.x kann VERSION per Konfiguration abschalten
+		// (EnableVersionCommand no - so liefert Ubuntu 26.04 clamd.conf aus) und
+		// antwortet dann mit „COMMAND UNAVAILABLE“. Dass ein clamd antwortet,
+		// hat PING oben schon belegt. Ohne diese Ausnahme galt der Dienst als
+		// nicht erreichbar und JEDER Upload scheiterte mit 403.
+		if (\strpos($versionResult, 'ClamAV') !== 0 && \rtrim($versionResult, "\r\n\0") !== 'COMMAND UNAVAILABLE') {
 			throw new InitException("Unexpected response to version: $versionResult");
 		}
 
