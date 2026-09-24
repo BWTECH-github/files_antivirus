@@ -119,6 +119,16 @@ abstract class AbstractScanner implements IScanner {
 		if ($this->infectedStatus instanceof Status) {
 			return $this->infectedStatus;
 		}
+		// Der letzte Abschnitt wird nie nach $infectedStatus geklont (nach ihm
+		// gibt es kein initScanner mehr), sein Befund steht nur in $status.
+		// Ist er infiziert, zählt das vor jedem offenen Abschnitt: infiziert
+		// ist ein Befund, ungeprüft nur ein Zweifel. Sonst gäbe es „bitte
+		// erneut versuchen“ statt Virus-Meldung, Aktivität und Protokoll.
+		if ($this->status instanceof Status
+			&& $this->status->getNumericStatus() === Status::SCANRESULT_INFECTED
+		) {
+			return $this->status;
+		}
 		// Ein Abschnitt ohne eindeutiges Ergebnis bestimmt das ganze Ergebnis
 		// (siehe $failedStatus) - sonst entschiede allein der letzte Abschnitt.
 		if ($this->failedStatus instanceof Status) {

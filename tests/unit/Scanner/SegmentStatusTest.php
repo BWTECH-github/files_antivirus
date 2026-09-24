@@ -96,6 +96,26 @@ class SegmentStatusTest extends TestCase {
 		self::assertSame(Status::SCANRESULT_INFECTED, $ergebnis);
 	}
 
+	public function testInfectedLastSegmentWinsOverEarlierUnchecked(): void {
+		// Der letzte Abschnitt wird nie nach $infectedStatus geklont (nach ihm
+		// gibt es kein initScanner mehr). Sein Befund darf nicht hinter dem
+		// offenen Abschnitt zurückstehen - sonst gibt es „bitte erneut
+		// versuchen“ statt der Virus-Meldung (Nacharbeit 24.09.2026).
+		$ergebnis = $this->scanne(
+			$this->scanner([Status::SCANRESULT_UNCHECKED, Status::SCANRESULT_INFECTED]),
+			['0123456789', 'abcdef']
+		);
+		self::assertSame(Status::SCANRESULT_INFECTED, $ergebnis);
+	}
+
+	public function testInfectedMiddleSegmentWinsOverEarlierUnchecked(): void {
+		$ergebnis = $this->scanne(
+			$this->scanner([Status::SCANRESULT_UNCHECKED, Status::SCANRESULT_INFECTED, Status::SCANRESULT_CLEAN]),
+			['0123456789', 'abcdefghij', 'xyz']
+		);
+		self::assertSame(Status::SCANRESULT_INFECTED, $ergebnis);
+	}
+
 	public function testBrokenStreamMidSegmentIsUnchecked(): void {
 		// Zweiter Schreibvorgang scheitert: was vorher in den Strom ging, bekommt
 		// nie ein Urteil, auch wenn der letzte Abschnitt sauber zurückkommt.
