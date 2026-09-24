@@ -11,6 +11,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Große Dateien werden abschnittsweise gescannt (av_stream_max_length). Bisher entschied nur der LETZTE Abschnitt: fiel der Scanner in einem früheren Abschnitt aus, oder brach der Datenstrom mitten im Abschnitt ab (der Neuaufbau schickt nur den letzten Block erneut), galt die Datei trotzdem als sauber. Jetzt bestimmt jeder Abschnitt ohne eindeutiges Ergebnis das Ergebnis der ganzen Datei, der Upload wird abgewiesen. Vier neue Tests (zwei davon rot gegen 1.3.6).
 - file_put_contents reicht die Wiederholbarkeit der Ablehnung durch.
 
+### Betrieb: sehr große Dateien (z. B. 44 GB) bei av_max_file_size = -1
+
+- fail-closed weist große Dateien nicht pauschal ab. Mit av_max_file_size = -1 wird jede Datei vollständig gescannt, in Abschnitten von av_stream_max_length (Standard 26214400 Byte = 25 MiB); 44 GB sind rund 1 700–1 800 Abschnitte. Liefert jeder Abschnitt „sauber“, wird die Datei angenommen (Test testBigCleanWriteOverManySegmentsIsAccepted).
+- Ein einziger Abschnitt ohne eindeutiges Ergebnis (clamd neu gestartet oder überlastet, ReadTimeout von clamd überschritten, clamscan vom OOM-Killer beendet) lässt den ganzen Upload scheitern. Die Ablehnung kommt erst nach dem vollständigen Upload (bei Chunk-Uploads im abschließenden MOVE), die Teildatei wird gelöscht, der Upload ist wiederholbar (403). Bis 1.3.5 wurde die Datei in diesem Fall ungeprüft angenommen.
+- **Vor dem Update prüfen:** av_stream_max_length darf nicht größer sein als StreamMaxLength in clamd.conf (Debian/Ubuntu liefern 25M = 26214400 = Standard der App). Sonst bricht clamd jeden Abschnitt mit „INSTREAM size limit exceeded“ ab. Bis 1.3.5 wurden solche Dateien trotzdem angenommen, obwohl clamd nur den Anfang jedes Abschnitts gesehen hatte; ab 1.3.6 wird jeder Upload abgewiesen, der größer als StreamMaxLength ist (Test testStreamLongerThanDaemonLimitIsRefused). Gemessen gegen clamd 1.5.3 mit StreamMaxLength 25M und 200 MB Zufallsdaten: mit av_stream_max_length 100 MB nimmt 1.3.3 an und 1.3.7 weist ab; mit 25 MiB nehmen beide an.
+- Laufzeit (unverändert, nicht durch diese Version verursacht): Der Scan läuft synchron im Upload-Request. Richtwert auf der Testmaschine: 3,5–9 s je 25-MiB-Abschnitt über clamd, also für 44 GB etwa 2–4,5 Stunden zusätzlich im letzten Request. Proxy-, PHP-FPM- und Client-Zeitgrenzen müssen das tragen, sonst scheitert der Upload auch ohne fail-closed. Im Modus executable startet je Abschnitt ein neuer clamscan-Prozess (gemessen 38 s und 1 GB RAM je Abschnitt, für 44 GB rund 19 Stunden) – für solche Dateien ungeeignet. Die Modi icap, fortinet und mawgw halten die ganze Datei im Arbeitsspeicher und scheitern bei 44 GB am memory_limit.
+- Wer sehr große Dateien nicht scannen will, setzt av_max_file_size auf eine Grenze. Größere Dateien werden dann gar nicht gescannt und bewusst ungeprüft angenommen.
+
+### Tests
+
+- Die Testattrappe DummyClam antwortet wie ein echter clamd („stream: OK“). Ihre alte Antwort „Scanned OK“ passte auf keine Regel und galt unter fail-closed als ungeprüft (testHealthFilePutContents schlug fehl).
+
 ## [1.3.6] - 2026-09-23
 
 ### Security
