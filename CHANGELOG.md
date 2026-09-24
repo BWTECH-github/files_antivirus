@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [1.3.7] - 2026-09-23
+## [1.3.8] - 2026-09-24
+
+### Fixed
+
+- Abschnittsweiser Scan: War ein früherer Abschnitt ohne Ergebnis (ungeprüft) und erst der LETZTE Abschnitt infiziert, meldete der Scanner „ungeprüft“ statt „infiziert“. Der Upload wurde zwar abgewiesen und die Datei gelöscht, aber ohne Virus-Warnung, Aktivität und Protokolleintrag – und mit der Aufforderung, den Upload zu wiederholen. Ursache: Der Befund des letzten Abschnitts wird nie nach `infectedStatus` übernommen (nach ihm kommt kein initScanner mehr) und wurde vom offenen Abschnitt verdeckt. Infiziert zählt jetzt in jeder Position vor ungeprüft. Zwei neue Tests, einer davon rot gegen 1.3.7.
+
+### Hinweise zum Verhalten seit 1.3.6 (fail-closed)
+
+- Objectstore als Primärspeicher (z. B. files_primary_s3): Dieser Speicher kennt keine Teildateien, ein Upload schreibt direkt auf den Endpfad. Beim Überschreiben einer bestehenden Datei ist der alte Inhalt bereits ersetzt, bevor der Scanner sein Urteil abgibt (der innere Strom wird geschlossen und hochgeladen, erst danach läuft der Abschluss des Scans). Liefert der Scan kein Ergebnis, wird deshalb die Zieldatei selbst entfernt – nicht nur eine Teildatei –, samt Cache-Eintrag und ohne Papierkorb; bei einem Objectstore mit Versionierung sind die früheren Fassungen danach in der Anwendung nicht mehr erreichbar. Der Client bekommt 403 mit der Aufforderung, den Upload zu wiederholen; bis dahin fehlt die Datei, andere Sync-Clients sehen sie in dieser Zeit als gelöscht. Bis 1.3.5 blieb in diesem Fall der neue, ungeprüfte Inhalt stehen und der Upload galt als gelungen. Für infizierte Dateien verhält sich die App auf Objectstore seit 0.15.2 genauso. Lokaler Speicher und andere Speicher mit Teildateien sind nicht betroffen: Dort wird nur die Teildatei entfernt, die bestehende Datei bleibt unverändert. Die Alternative (Inhalt behalten, trotzdem 403) ist bewusst nicht umgesetzt: Sie ließe genau die ungeprüfte Datei im Bestand, die 1.3.6 verhindert.
+- file_put_contents (Texteditor, vom Kern erzeugte Vorschaubilder, jeder Schreibvorgang über diesen Weg) wird ohne Größengrenze gescannt und schlägt ebenfalls geschlossen fehl: Ohne eindeutiges „sauber“ wird nichts geschrieben (ForbiddenException, wiederholbar). Ein nicht erreichbarer Scanner führte hier schon vor 1.3.6 zum Fehler; neu ist der Fall „Scanner antwortet, aber ohne Urteil“ (Zeitüberschreitung, Überlast). Sichtbare Folge: Solange clamd nicht antwortet, entstehen keine neuen Vorschaubilder, die Vorschau-Anfrage schlägt fehl statt ein Bild zu liefern.
+
+## [1.3.7] - 2026-09-24
 
 ### Security
 
@@ -14,7 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Betrieb: sehr große Dateien (z. B. 44 GB) bei av_max_file_size = -1
 
 - fail-closed weist große Dateien nicht pauschal ab. Mit av_max_file_size = -1 wird jede Datei vollständig gescannt, in Abschnitten von av_stream_max_length (Standard 26214400 Byte = 25 MiB); 44 GB sind rund 1 700–1 800 Abschnitte. Liefert jeder Abschnitt „sauber“, wird die Datei angenommen (Test testBigCleanWriteOverManySegmentsIsAccepted).
-- Ein einziger Abschnitt ohne eindeutiges Ergebnis (clamd neu gestartet oder überlastet, ReadTimeout von clamd überschritten, clamscan vom OOM-Killer beendet) lässt den ganzen Upload scheitern. Die Ablehnung kommt erst nach dem vollständigen Upload (bei Chunk-Uploads im abschließenden MOVE), die Teildatei wird gelöscht, der Upload ist wiederholbar (403). Bis 1.3.5 wurde die Datei in diesem Fall ungeprüft angenommen.
+- Ein einziger Abschnitt ohne eindeutiges Ergebnis (clamd neu gestartet oder überlastet, ReadTimeout von clamd überschritten, clamscan vom OOM-Killer beendet) lässt den ganzen Upload scheitern. Die Ablehnung kommt erst nach dem vollständigen Upload (bei Chunk-Uploads im abschließenden MOVE), die Teildatei wird gelöscht (auf Objectstore ohne Teildateien die Zieldatei selbst, siehe 1.3.8), der Upload ist wiederholbar (403). Bis 1.3.5 wurde die Datei in diesem Fall ungeprüft angenommen.
 - **Vor dem Update prüfen:** av_stream_max_length darf nicht größer sein als StreamMaxLength in clamd.conf (Debian/Ubuntu liefern 25M = 26214400 = Standard der App). Sonst bricht clamd jeden Abschnitt mit „INSTREAM size limit exceeded“ ab. Bis 1.3.5 wurden solche Dateien trotzdem angenommen, obwohl clamd nur den Anfang jedes Abschnitts gesehen hatte; ab 1.3.6 wird jeder Upload abgewiesen, der größer als StreamMaxLength ist (Test testStreamLongerThanDaemonLimitIsRefused). Gemessen gegen clamd 1.5.3 mit StreamMaxLength 25M und 200 MB Zufallsdaten: mit av_stream_max_length 100 MB nimmt 1.3.3 an und 1.3.7 weist ab; mit 25 MiB nehmen beide an.
 - Laufzeit (unverändert, nicht durch diese Version verursacht): Der Scan läuft synchron im Upload-Request. Richtwert auf der Testmaschine: 3,5–9 s je 25-MiB-Abschnitt über clamd, also für 44 GB etwa 2–4,5 Stunden zusätzlich im letzten Request. Proxy-, PHP-FPM- und Client-Zeitgrenzen müssen das tragen, sonst scheitert der Upload auch ohne fail-closed. Im Modus executable startet je Abschnitt ein neuer clamscan-Prozess (gemessen 38 s und 1 GB RAM je Abschnitt, für 44 GB rund 19 Stunden) – für solche Dateien ungeeignet. Die Modi icap, fortinet und mawgw halten die ganze Datei im Arbeitsspeicher und scheitern bei 44 GB am memory_limit.
 - Wer sehr große Dateien nicht scannen will, setzt av_max_file_size auf eine Grenze. Größere Dateien werden dann gar nicht gescannt und bewusst ungeprüft angenommen.
