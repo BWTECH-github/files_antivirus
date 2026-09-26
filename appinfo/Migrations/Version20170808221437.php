@@ -38,9 +38,9 @@ class Version20170808221437 implements ISchemaMigration {
 			$table = $schema->getTable("{$prefix}files_antivirus");
 
 			$fileIdColumn = $table->getColumn('fileid');
-			// Nur heben, was noch kein bigint ist: Altbestände aus ownCloud 9.x
-			// (database.xml) haben integer(4). Die Bedingung war bei der
-			// DBAL-3-Umstellung verdreht und ließ genau diese Spalte stehen.
+			// Nur heben, was noch kein bigint ist: Altbestände aus 0.8.1.0 bis
+			// 0.10.0.0 (Tabelle aus database.xml) haben integer(4). Die Bedingung
+			// war bei der DBAL-3-Umstellung verdreht und ließ genau diese Spalte stehen.
 			if ($fileIdColumn // @phpstan-ignore-line
 				&& !($fileIdColumn->getType() instanceof BigIntType)
 			) {

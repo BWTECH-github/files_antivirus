@@ -206,6 +206,32 @@ Sauber geprüfte Dateien vermerkt der Hintergrundlauf in der Tabelle
 werden dort nicht abgelegt. Wird ein Eintrag entfernt oder ändert sich die
 Datei, prüft der nächste Lauf sie erneut.
 
+## Umzug von einer Altinstanz
+
+Wird die Datenbank einer älteren Instanz übernommen, gilt Folgendes:
+
+* Betriebsart, Host, Port, Socket, Größengrenzen, Fundaktion und Regeln
+  kommen mit der Datenbank mit und gelten unverändert. Zeigen sie auf einen
+  Scanner, den der neue Server nicht erreicht, schlägt jeder Schreibvorgang
+  geschlossen fehl: Uploads, Speichern im Texteditor und das Erzeugen von
+  Vorschaubildern (Galerie, Medienbetrachter). Die Scanner-Einstellungen
+  deshalb direkt nach dem Umzug prüfen.
+* `av_path` und `av_cmd_options` werden nicht übernommen, siehe
+  „Einstellungen“.
+* Die Betriebsarten `icap`, `fortinet` und `mawgw` laufen weiter, solange der
+  mit der Datenbank übernommene Lizenzschlüssel gültig ist. Läuft er ab,
+  fällt die App ohne weiteren Hinweis als den Logeintrag auf `executable`
+  zurück.
+* Der `config.php`-Schlüssel `files-antivirus.scanner-class` (Version 0.16,
+  externe Scanner-Klasse) hat keinen Nachfolger und wird ignoriert; es gilt
+  die eingestellte Betriebsart.
+* Die Spalte `fileid` der Prüftabelle wird beim Update von 0.8.1.0, 0.9.0.1
+  und 0.10.0.0 (Tabelle noch aus `database.xml`, dort integer) auf bigint
+  gehoben. Wurde eine solche
+  Datenbank schon mit 1.3.0 bis 1.3.8 aktualisiert, blieb sie INT; nachholen
+  mit `occ migrations:execute files_antivirus 20170808221437`. Vorhandene
+  Einträge bleiben dabei erhalten.
+
 ## Herkunft
 
 Die App geht auf `files_antivirus` der ownCloud GmbH zurück (AGPL-3.0).
