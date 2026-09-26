@@ -122,6 +122,12 @@ aus der `config.php` gelesen und dort auch gepflegt:
 kommagetrennt entgegen; jede Option wird einzeln maskiert an `clamscan`
 übergeben.
 
+Bis 0.16 standen beide Werte in der Datenbank (`oc_appconfig`). Beim Update
+solcher Altbestände werden sie seit 1.3.10 nur protokolliert und gelöscht,
+nicht in die `config.php` übernommen: Die Datenbank kann aus fremder Hand
+stammen (Umzug), und diese Werte bestimmen, welches Programm der Webserver
+startet. Wer sie weiter braucht, trägt sie selbst in die `config.php` ein.
+
 ## Was bei einem Fund passiert
 
 Beim Hochladen durch angemeldete Nutzer (Speicher-Wrapper):

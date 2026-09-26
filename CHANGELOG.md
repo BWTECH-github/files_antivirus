@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.10] - 2026-09-26
+
+### Security
+
+- Umzug von Altbeständen bis 0.16: Dort standen `av_path` und `av_cmd_options` in `oc_appconfig`. Die Migration Version20210413110050 hat sie beim Update ungeprüft in die `config.php` geschrieben und dabei auch vorhandene `config.php`-Werte überschrieben. Im Modus executable startet der Webserver genau dieses Programm mit diesen Argumenten und reicht den Dateiinhalt auf STDIN weiter. Wer die Datenbank liefert (beim Umzug der Kunde), konnte so beliebige Befehle als Nutzer des Webservers ausführen lassen: Mit `av_mode=executable`, `av_path=/bin/sh`, `av_cmd_options=-s` und `installed_version` 0.x lief jeder Upload als Shell-Skript. Nachgestellt auf MariaDB: Mit 1.3.9 legte der Upload eines Skripts nach `occ upgrade` eine Datei als www-data an, mit 1.3.10 nicht. Seit Upstream 1.0.0 lassen sich beide Werte bewusst nicht mehr über die Oberfläche ändern; diese Migration war die verbliebene Brücke von der Datenbank in die `config.php`.
+- Jetzt protokolliert die Migration die Altwerte (Warnung „Legacy setting … was not copied to config.php“) und löscht sie aus `oc_appconfig`. In die `config.php` schreibt sie nichts mehr. Ein Pfad vom alten Server ist auf dem neuen ohnehin bedeutungslos.
+- **Nach dem Update prüfen:** Wer bis 0.16 einen eigenen `av_path` oder eigene `av_cmd_options` hatte, trägt sie selbst als `files_antivirus.av_path` bzw. `files_antivirus.av_cmd_options` in die `config.php` ein. Sonst gelten `/usr/bin/clamscan` und keine Zusatzoptionen; fehlt clamscan dort, weist die App im Modus executable jeden Upload ab (fail-closed, siehe 1.3.6).
+- Vier neue Tests, drei davon rot gegen 1.3.9.
+
 ## [1.3.9] - 2026-09-26
 
 ### Fixed
