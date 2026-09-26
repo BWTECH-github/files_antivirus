@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.9] - 2026-09-26
+
+### Fixed
+
+- Umzug von Altbeständen: Die Migration Version20170808221437 soll `oc_files_antivirus.fileid` auf bigint heben. Ihre Bedingung war bei der DBAL-3-Umstellung verdreht („ist bigint“ statt „ist noch kein bigint“) und ließ genau die Spalte stehen, die sie umstellen soll. Betroffen sind Datenbanken, in denen diese Migration noch nicht gelaufen ist, also Umzüge von ownCloud 9.x (files_antivirus 0.9/0.10, `fileid` dort integer(4)). Dort blieb die Prüftabelle bei INT UNSIGNED. Nachgestellt auf MariaDB mit dem Stand 0.9.0.1: 1.3.8 lässt `int(10) unsigned` stehen, 1.3.9 hebt auf `bigint(20) unsigned`. Datenbanken aus ownCloud 10.x und Neuinstallationen sind nicht betroffen, dort ist die Migration schon verbucht bzw. die Spalte von Anfang an bigint. Vier neue Tests, zwei davon rot gegen 1.3.8.
+
 ## [1.3.8] - 2026-09-24
 
 ### Fixed
