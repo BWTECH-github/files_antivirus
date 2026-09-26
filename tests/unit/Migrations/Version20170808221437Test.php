@@ -22,10 +22,11 @@ use PHPUnit\Framework\TestCase;
 require_once __DIR__ . '/../../../appinfo/Migrations/Version20170808221437.php';
 
 /**
- * Altbestand aus ownCloud 9.x (files_antivirus 0.9/0.10, database.xml):
+ * Altbestand aus files_antivirus 0.8.1.0 bis 0.10.0.0 (Tabelle aus database.xml):
  * oc_files_antivirus.fileid ist dort integer(4). Diese Migration muss die
  * Spalte beim Umzug auf bigint heben, sonst passen Datei-IDs jenseits von
- * 2^32 nicht mehr in die Prüftabelle.
+ * 2^32 nicht mehr in die Prüftabelle. Die Tests prüfen nur das Schema;
+ * dass Zeilen ein ALTER überstehen, ist Sache der Datenbank.
  */
 class Version20170808221437Test extends TestCase {
 	private const PREFIX = 'oc_';
@@ -54,7 +55,7 @@ class Version20170808221437Test extends TestCase {
 		$this->assertSame(20, $column->getLength());
 	}
 
-	public function testExistingRowsSurviveBecauseOnlyTheColumnTypeChanges(): void {
+	public function testColumnsAndPrimaryKeyAreKept(): void {
 		$schema = $this->schemaWithFileIdType(Types::INTEGER);
 
 		$this->migrate($schema);
