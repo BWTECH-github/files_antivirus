@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.11] - 2026-10-02
+
+### Fixed
+
+- Speichern über CalDAV/CardDAV scheiterte mit HTTP 500, wenn files_antivirus aktiv war (PHP 8). Betroffen war jeder neue und jeder geänderte Termin und Kontakt, aus der Kalender-App ebenso wie aus Sync-Clients (iOS, Android/DAVx5, Thunderbird). Ursache: Das Sabre-Plugin der App setzt `$data` in `beforeCreateFile` und `beforeWriteContent` mit `rewind()` zurück. Die CalDAV- und CardDAV-Plugins von Sabre haben den Datenstrom da schon in einen String gewandelt. Unter PHP 7 war `rewind()` auf einem String nur eine Warnung, unter PHP 8 bricht es mit TypeError ab. Zurückgesetzt wird jetzt nur noch ein Datenstrom. Nachgestellt auf SaaS 11.0.21 (Modus socket): Mit 1.3.10 scheiterte schon das Anlegen von Termin und Kontakt mit 500, mit 1.3.11 antworten Anlegen mit 201 und Ändern mit 204.
+- Vorsorglich: Kommt ohne Anmeldung ein String an, prüft die App ihn als Inhalt, statt mit TypeError abzubrechen. Datei-Uploads über öffentliche Links laufen unverändert als Datenstrom durch den Scanner, ein infizierter Upload wird weiter mit 403 abgewiesen, beim Anlegen wie beim Überschreiben. Einen anonymen Weg, der einen String liefert, gibt es derzeit nicht: In einen veröffentlichten Kalender darf niemand ohne Anmeldung schreiben, die Rechteprüfung weist das vor dem Plugin ab.
+- Termine und Kontakte angemeldeter Nutzer prüft die App wie bisher nicht. Sie liegen in der Datenbank, nicht im Dateispeicher.
+- 14 neue Tests, 8 davon rot gegen 1.3.10.
+
 ## [1.3.10] - 2026-09-26
 
 ### Security
