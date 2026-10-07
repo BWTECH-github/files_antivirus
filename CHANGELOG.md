@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.12] - 2026-10-07
+
+Redesign-Linie: enthält main bis 1.3.11 (Merge), redesign stand vorher bei 1.3.7.
+
+### Fixed
+
+- Sprache: Die Upload-Meldung „The file could not be checked for viruses. Upload cannot be completed, please try again.“ (Scanner antwortet nicht) fehlte in allen deutschen Katalogen.
+- Sprache: Regeltabelle in Administration → Sicherheit → Antivirus: Tooltips und Sprachausgabe „Save rule“/„Delete rule“ ergänzt; die 14 Beschreibungen der mitgelieferten Regeln (englisch in der Datenbank) werden zur Anzeige übersetzt. Unverändert gespeichert bleibt der Datenbankwert, eigene Beschreibungen bleiben, wie sie sind.
+- Sprache: Der Hinweis „You can change this value in the system configuration (config.php).“ (Modus „ClamAV Executable“) war fest eingetragen und läuft jetzt über den Katalog.
+- Anrede: Die ICAP-Meldung bei Fund siezte in de/de_AT/de_CH; de_DE sagte „gelöscht“ statt „abgelehnt“.
+
 ## [1.3.11] - 2026-10-02
 
 ### Fixed
