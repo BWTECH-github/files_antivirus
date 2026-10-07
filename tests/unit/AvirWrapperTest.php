@@ -170,6 +170,58 @@ class AvirWrapperTest extends TestBase {
 		$wrapper->fopen('setup failure', 'w+');
 	}
 
+	/**
+	 * Verkleinertes Abbild eines sehr großen Uploads (etwa 44 GB) bei
+	 * av_max_file_size = -1: viele Abschnitte, jeder sauber - die Datei muss
+	 * angenommen werden. fail-closed darf große Dateien nicht pauschal abweisen.
+	 */
+	public function testBigCleanWriteOverManySegmentsIsAccepted(): void {
+		$size = 5 * DummyClam::TEST_STREAM_SIZE;
+		$wrapper = $this->getWrapper();
+		$fd = $wrapper->fopen('big clean', 'w+');
+		$block = \str_repeat('0', 8192);
+		for ($written = 0; $written < $size; $written += \strlen($block)) {
+			\fwrite($fd, $block);
+		}
+		\fclose($fd);
+
+		self::assertSame($size, $wrapper->filesize('big clean'));
+	}
+
+	/**
+	 * av_stream_max_length größer als das Stromlimit des Dienstes (bei clamd
+	 * StreamMaxLength): der Dienst bricht jeden Abschnitt ab, Teile der Datei
+	 * bekommen nie ein Urteil. Bis 1.3.5 wurde die Datei trotzdem angenommen.
+	 */
+	public function testStreamLongerThanDaemonLimitIsRefused(): void {
+		$this->expectException(FileContentNotAllowedException::class);
+
+		$config = new class(
+			$this->container->query('CoreConfig'),
+			$this->container->query('ServerContainer')->getLicenseManager(),
+			$this->container->query('ServerContainer')->getLogger()
+		) extends Mock\Config {
+			public function getAppValue($key) {
+				if ($key === 'av_stream_max_length') {
+					return 4 * DummyClam::TEST_STREAM_SIZE;
+				}
+				return parent::getAppValue($key);
+			}
+		};
+		$scanner = new \OCA\Files_Antivirus\Scanner\Daemon(
+			$config,
+			$this->container->query('Logger'),
+			$this->l10n
+		);
+		$wrapper = $this->getWrapperWithScanner($scanner);
+		$fd = $wrapper->fopen('longer than daemon limit', 'w+');
+		$block = \str_repeat('0', 8192);
+		for ($written = 0; $written < 2 * DummyClam::TEST_STREAM_SIZE; $written += \strlen($block)) {
+			@\fwrite($fd, $block);
+		}
+		@\fclose($fd);
+	}
+
 	private function uncheckedScanner(): \OCA\Files_Antivirus\Scanner\IScanner {
 		// Status ist final; ein frischer Status steht auf SCANRESULT_UNCHECKED -
 		// genau das, was ein abgebrochener Scan zurückgibt.

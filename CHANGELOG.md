@@ -4,12 +4,60 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [1.3.7] - 2026-09-23
+## [1.3.11] - 2026-10-02
+
+### Fixed
+
+- Speichern über CalDAV/CardDAV scheiterte mit HTTP 500, wenn files_antivirus aktiv war (PHP 8). Betroffen war jeder neue und jeder geänderte Termin und Kontakt, aus der Kalender-App ebenso wie aus Sync-Clients (iOS, Android/DAVx5, Thunderbird). Ursache: Das Sabre-Plugin der App setzt `$data` in `beforeCreateFile` und `beforeWriteContent` mit `rewind()` zurück. Die CalDAV- und CardDAV-Plugins von Sabre haben den Datenstrom da schon in einen String gewandelt. Unter PHP 7 war `rewind()` auf einem String nur eine Warnung, unter PHP 8 bricht es mit TypeError ab. Zurückgesetzt wird jetzt nur noch ein Datenstrom. Nachgestellt auf SaaS 11.0.21 (Modus socket): Mit 1.3.10 scheiterte schon das Anlegen von Termin und Kontakt mit 500, mit 1.3.11 antworten Anlegen mit 201 und Ändern mit 204.
+- Vorsorglich: Kommt ohne Anmeldung ein String an, prüft die App ihn als Inhalt, statt mit TypeError abzubrechen. Datei-Uploads über öffentliche Links laufen unverändert als Datenstrom durch den Scanner, ein infizierter Upload wird weiter mit 403 abgewiesen, beim Anlegen wie beim Überschreiben. Einen anonymen Weg, der einen String liefert, gibt es derzeit nicht: In einen veröffentlichten Kalender darf niemand ohne Anmeldung schreiben, die Rechteprüfung weist das vor dem Plugin ab.
+- Termine und Kontakte angemeldeter Nutzer prüft die App wie bisher nicht. Sie liegen in der Datenbank, nicht im Dateispeicher.
+- 14 neue Tests, 8 davon rot gegen 1.3.10.
+
+## [1.3.10] - 2026-09-26
+
+### Security
+
+- Umzug von Altbeständen bis 0.16: Dort standen `av_path` und `av_cmd_options` in `oc_appconfig`. Die Migration Version20210413110050 hat sie beim Update ungeprüft in die `config.php` geschrieben und dabei auch vorhandene `config.php`-Werte überschrieben. Im Modus executable startet der Webserver genau dieses Programm mit diesen Argumenten und reicht den Dateiinhalt auf STDIN weiter. Wer die Datenbank liefert (beim Umzug der Kunde), konnte so beliebige Befehle als Nutzer des Webservers ausführen lassen: Mit `av_mode=executable`, `av_path=/bin/sh`, `av_cmd_options=-s` und `installed_version` 0.x lief jeder Upload als Shell-Skript. Nachgestellt auf MariaDB: Mit 1.3.9 legte der Upload eines Skripts nach `occ upgrade` eine Datei als www-data an, mit 1.3.10 nicht. Seit Upstream 1.0.0 lassen sich beide Werte bewusst nicht mehr über die Oberfläche ändern; diese Migration war die verbliebene Brücke von der Datenbank in die `config.php`.
+- Jetzt protokolliert die Migration die Altwerte (Warnung „Legacy setting … was not copied to config.php“) und löscht sie aus `oc_appconfig`. In die `config.php` schreibt sie nichts mehr. Ein Pfad vom alten Server ist auf dem neuen ohnehin bedeutungslos.
+- **Nach dem Update prüfen:** Wer bis 0.16 einen eigenen `av_path` oder eigene `av_cmd_options` hatte, trägt sie selbst als `files_antivirus.av_path` bzw. `files_antivirus.av_cmd_options` in die `config.php` ein. Sonst gelten `/usr/bin/clamscan` und keine Zusatzoptionen; fehlt clamscan dort, weist die App im Modus executable jeden Upload ab (fail-closed, siehe 1.3.6).
+- Vier neue Tests, drei davon rot gegen 1.3.9.
+
+## [1.3.9] - 2026-09-26
+
+### Fixed
+
+- Umzug von Altbeständen: Die Migration Version20170808221437 soll `oc_files_antivirus.fileid` auf bigint heben. Ihre Bedingung war bei der DBAL-3-Umstellung verdreht („ist bigint“ statt „ist noch kein bigint“) und ließ genau die Spalte stehen, die sie umstellen soll. Betroffen sind Datenbanken, in denen diese Migration noch nicht verbucht ist: files_antivirus 0.8.1.0 (Server 8.2.11 und 9.0.x), 0.9.0.1 (Server 9.1.x) und 0.10.0.0 (Server 10.0.0 bis 10.0.2). Alle drei legen die Tabelle noch über `database.xml` an, `fileid` ist dort integer(4); dort blieb die Prüftabelle bei INT UNSIGNED. Nachgestellt auf MariaDB mit dem Stand 0.9.0.1: 1.3.8 lässt `int(10) unsigned` stehen, 1.3.9 hebt auf `bigint(20) unsigned`. Nicht betroffen sind Datenbanken ab 0.10.1.0 (Server 10.0.3), die die Migration mit der damals noch richtigen Bedingung ausgeführt haben, und Neuinstallationen, die die Spalte gleich als bigint anlegen. Vier neue Tests, zwei davon rot gegen 1.3.8.
+- Nicht erfasst: Datenbanken aus 0.8.1.0 bis 0.10.0.0, die schon mit 1.3.0 bis 1.3.8 aktualisiert wurden. Dort ist die Migration verbucht und läuft nicht erneut, `fileid` blieb INT. Nachholen mit `occ migrations:execute files_antivirus 20170808221437`; auf MariaDB nachgestellt: danach bigint, vorhandene Einträge bleiben erhalten, ein zweiter Aufruf ändert nichts. Spürbar wird die INT-Spalte erst bei Datei-IDs über 4 294 967 295.
+
+## [1.3.8] - 2026-09-24
+
+### Fixed
+
+- Abschnittsweiser Scan: War ein früherer Abschnitt ohne Ergebnis (ungeprüft) und erst der LETZTE Abschnitt infiziert, meldete der Scanner „ungeprüft“ statt „infiziert“. Der Upload wurde zwar abgewiesen und die Datei gelöscht, aber ohne Virus-Warnung, Aktivität und Protokolleintrag – und mit der Aufforderung, den Upload zu wiederholen. Ursache: Der Befund des letzten Abschnitts wird nie nach `infectedStatus` übernommen (nach ihm kommt kein initScanner mehr) und wurde vom offenen Abschnitt verdeckt. Infiziert zählt jetzt in jeder Position vor ungeprüft. Zwei neue Tests, einer davon rot gegen 1.3.7.
+
+### Hinweise zum Verhalten seit 1.3.6 (fail-closed)
+
+- Objectstore als Primärspeicher (z. B. files_primary_s3): Dieser Speicher kennt keine Teildateien, ein Upload schreibt direkt auf den Endpfad. Beim Überschreiben einer bestehenden Datei ist der alte Inhalt bereits ersetzt, bevor der Scanner sein Urteil abgibt (der innere Strom wird geschlossen und hochgeladen, erst danach läuft der Abschluss des Scans). Liefert der Scan kein Ergebnis, wird deshalb die Zieldatei selbst entfernt – nicht nur eine Teildatei –, samt Cache-Eintrag und ohne Papierkorb; bei einem Objectstore mit Versionierung sind die früheren Fassungen danach in der Anwendung nicht mehr erreichbar. Der Client bekommt 403 mit der Aufforderung, den Upload zu wiederholen; bis dahin fehlt die Datei, andere Sync-Clients sehen sie in dieser Zeit als gelöscht. Bis 1.3.5 blieb in diesem Fall der neue, ungeprüfte Inhalt stehen und der Upload galt als gelungen. Für infizierte Dateien verhält sich die App auf Objectstore seit 0.15.2 genauso. Lokaler Speicher und andere Speicher mit Teildateien sind nicht betroffen: Dort wird nur die Teildatei entfernt, die bestehende Datei bleibt unverändert. Die Alternative (Inhalt behalten, trotzdem 403) ist bewusst nicht umgesetzt: Sie ließe genau die ungeprüfte Datei im Bestand, die 1.3.6 verhindert.
+- file_put_contents (Texteditor, vom Kern erzeugte Vorschaubilder, jeder Schreibvorgang über diesen Weg) wird ohne Größengrenze gescannt und schlägt ebenfalls geschlossen fehl: Ohne eindeutiges „sauber“ wird nichts geschrieben (ForbiddenException, wiederholbar). Ein nicht erreichbarer Scanner führte hier schon vor 1.3.6 zum Fehler; neu ist der Fall „Scanner antwortet, aber ohne Urteil“ (Zeitüberschreitung, Überlast). Sichtbare Folge: Solange clamd nicht antwortet, entstehen keine neuen Vorschaubilder, die Vorschau-Anfrage schlägt fehl statt ein Bild zu liefern.
+
+## [1.3.7] - 2026-09-24
 
 ### Security
 
 - Große Dateien werden abschnittsweise gescannt (av_stream_max_length). Bisher entschied nur der LETZTE Abschnitt: fiel der Scanner in einem früheren Abschnitt aus, oder brach der Datenstrom mitten im Abschnitt ab (der Neuaufbau schickt nur den letzten Block erneut), galt die Datei trotzdem als sauber. Jetzt bestimmt jeder Abschnitt ohne eindeutiges Ergebnis das Ergebnis der ganzen Datei, der Upload wird abgewiesen. Vier neue Tests (zwei davon rot gegen 1.3.6).
 - file_put_contents reicht die Wiederholbarkeit der Ablehnung durch.
+
+### Betrieb: sehr große Dateien (z. B. 44 GB) bei av_max_file_size = -1
+
+- fail-closed weist große Dateien nicht pauschal ab. Mit av_max_file_size = -1 wird jede Datei vollständig gescannt, in Abschnitten von av_stream_max_length (Standard 26214400 Byte = 25 MiB); 44 GB sind rund 1 700–1 800 Abschnitte. Liefert jeder Abschnitt „sauber“, wird die Datei angenommen (Test testBigCleanWriteOverManySegmentsIsAccepted).
+- Ein einziger Abschnitt ohne eindeutiges Ergebnis (clamd neu gestartet oder überlastet, ReadTimeout von clamd überschritten, clamscan vom OOM-Killer beendet) lässt den ganzen Upload scheitern. Die Ablehnung kommt erst nach dem vollständigen Upload (bei Chunk-Uploads im abschließenden MOVE), die Teildatei wird gelöscht (auf Objectstore ohne Teildateien die Zieldatei selbst, siehe 1.3.8), der Upload ist wiederholbar (403). Bis 1.3.5 wurde die Datei in diesem Fall ungeprüft angenommen.
+- **Vor dem Update prüfen:** av_stream_max_length darf nicht größer sein als StreamMaxLength in clamd.conf (Debian/Ubuntu liefern 25M = 26214400 = Standard der App). Sonst bricht clamd jeden Abschnitt mit „INSTREAM size limit exceeded“ ab. Bis 1.3.5 wurden solche Dateien trotzdem angenommen, obwohl clamd nur den Anfang jedes Abschnitts gesehen hatte; ab 1.3.6 wird jeder Upload abgewiesen, der größer als StreamMaxLength ist (Test testStreamLongerThanDaemonLimitIsRefused). Gemessen gegen clamd 1.5.3 mit StreamMaxLength 25M und 200 MB Zufallsdaten: mit av_stream_max_length 100 MB nimmt 1.3.3 an und 1.3.7 weist ab; mit 25 MiB nehmen beide an.
+- Laufzeit (unverändert, nicht durch diese Version verursacht): Der Scan läuft synchron im Upload-Request. Richtwert auf der Testmaschine: 3,5–9 s je 25-MiB-Abschnitt über clamd, also für 44 GB etwa 2–4,5 Stunden zusätzlich im letzten Request. Proxy-, PHP-FPM- und Client-Zeitgrenzen müssen das tragen, sonst scheitert der Upload auch ohne fail-closed. Im Modus executable startet je Abschnitt ein neuer clamscan-Prozess (gemessen 38 s und 1 GB RAM je Abschnitt, für 44 GB rund 19 Stunden) – für solche Dateien ungeeignet. Die Modi icap, fortinet und mawgw halten die ganze Datei im Arbeitsspeicher und scheitern bei 44 GB am memory_limit.
+- Wer sehr große Dateien nicht scannen will, setzt av_max_file_size auf eine Grenze. Größere Dateien werden dann gar nicht gescannt und bewusst ungeprüft angenommen.
+
+### Tests
+
+- Die Testattrappe DummyClam antwortet wie ein echter clamd („stream: OK“). Ihre alte Antwort „Scanned OK“ passte auf keine Regel und galt unter fail-closed als ungeprüft (testHealthFilePutContents schlug fehl).
 
 ## [1.3.6] - 2026-09-23
 

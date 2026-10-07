@@ -84,9 +84,13 @@ class DummyClam {
 				} while (true);
 
 				if (!$isAborted) {
+					// Antwortformat wie ein echter clamd auf nINSTREAM, damit die
+					// Standardregeln (RuleMapper::populate) greifen. „Scanned OK“
+					// passte auf keine Regel und galt seit 1.3.6 (fail-closed) als
+					// ungeprüft.
 					$response = \strpos($buffer, self::TEST_SIGNATURE) !== false
-						? "Ohoho: Criminal.Joboholic FOUND"
-						: 'Scanned OK'
+						? "stream: Criminal.Joboholic FOUND\n"
+						: "stream: OK\n"
 					;
 					//echo str_replace('0', '', $buffer) . $response;
 					\fwrite($connection, $response);
