@@ -103,6 +103,7 @@ script('files_antivirus', 'settings');
 			<button id="antivirus-clear"><?php p($l->t('Clear All')) ?></button>
 			<button id="antivirus-reset"><?php p($l->t('Reset to defaults')) ?></button>
 		</div>
+		<div class="antivirus-regeln">
 		<table id="antivirus-statuses" class="grid">
 			<thead>
 			<tr>
@@ -117,6 +118,7 @@ script('files_antivirus', 'settings');
 			<tbody>
 			</tbody>
 		</table>
+		</div>
 		<button id="antivirus-add" class="icon-add"><?php p($l->t('Add a rule')) ?></button>
 	</div>
 </div>

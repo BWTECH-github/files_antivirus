@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.13] - 2026-10-08
+
+Redesign-Linie. 1.3.12 ist für die Sprachrunde (Zweig fix-sprache-2) vergeben.
+
+### Fixed
+
+- Schmale Fenster: Beschriftungen stehen über ihren Feldern statt in einer
+  280 px breiten, rechtsbündigen Spalte. Bei 320–390 px standen die Felder
+  rechts außerhalb der Karte, das Formular war 442 px breit und die Seite
+  rollte waagerecht; der Hinweis zur Dateigrößenbeschränkung ragte über den
+  Kartenrand.
+- Das Feld „Socket“ (130 px aus dem Kern) schnitt „/run/clamav/clamd.ctl“ ab;
+  Textfelder sind jetzt 24rem (Port und Größen 12rem) breit, höchstens so breit
+  wie die Karte.
+- „Modus“: eine Auswahl kann nicht umbrechen. Sie wächst mit der gewählten
+  Option; ist die breiter als die Karte („McAfee Webgateway / Skyhigh Secure
+  Web Gateway (ICAP)“ bei 320 px), rollt nur diese Zeile waagerecht.
+- „Fortgeschritten“: die Regeltabelle (1243 px, auch bei 1280 px) sprengte die
+  Seite. Sie rollt jetzt in einem eigenen Bereich, Kopf- und Textzellen brechen
+  um (bei 1280 px passt sie ganz in die Karte); die Knöpfe „Alles säubern“ und
+  „Auf Standard rücksetzen“ ragten 10 px über die Karte.
+
 ## [1.3.7] - 2026-09-23
 
 ### Security
