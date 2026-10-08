@@ -17,20 +17,32 @@ use OCP\IDBConnection;
 use OCP\Migration\ISqlMigration;
 
 /**
- * Cleans table before adding etag field
+ * Entfernt av_path und av_cmd_options (bis 0.16 in oc_appconfig) aus der Datenbank.
+ *
+ * Beide Werte bestimmen, welches Programm der Webserver mit welchen Argumenten
+ * startet (Modus executable). Seit 1.0.0 stehen sie deshalb nur noch in der
+ * config.php. Früher hat diese Migration die Datenbankwerte dorthin kopiert.
+ * Beim Umzug stammt die Datenbank aber vom Kunden: Mit av_path=/bin/sh und
+ * av_cmd_options=-s liefe jeder Upload als Shell-Skript. Außerdem ist ein Pfad
+ * vom alten Server auf dem neuen bedeutungslos. Die Werte werden deshalb nur
+ * noch protokolliert und gelöscht; wer sie braucht, trägt sie selbst in die
+ * config.php ein. Vorhandene config.php-Werte bleiben unangetastet.
  */
 class Version20210413110050 implements ISqlMigration {
 	public function sql(IDBConnection $conn) {
-		$conf = \OC::$server->getConfig();
 		$query = 'SELECT `configkey`, `configvalue` FROM `*PREFIX*appconfig` WHERE `appid` = \'files_antivirus\' AND (`configkey` = \'av_path\' OR `configkey` = \'av_cmd_options\')';
 		$result = $conn->executeQuery($query);
+		$logger = \OC::$server->getLogger();
 		while ($row = $result->fetchAssociative()) {
-			try {
-				$conf->setSystemValue('files_antivirus.' . $row['configkey'], $row['configvalue']);
-			} catch (\Exception $e) {
-				echo 'Migration failed: ', $e->getMessage(), '\n';
-				return [];
-			}
+			$logger->warning(
+				\sprintf(
+					'Legacy setting %s = %s found in the database was not copied to config.php. If it is still needed, set \'files_antivirus.%s\' in config.php manually.',
+					$row['configkey'],
+					\json_encode($row['configvalue'], JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE),
+					$row['configkey']
+				),
+				['app' => 'files_antivirus']
+			);
 		}
 		$result->free();
 

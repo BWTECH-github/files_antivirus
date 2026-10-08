@@ -8,6 +8,34 @@ var antivirusSettings = antivirusSettings || {
 		{ value : 1, title : t('files_antivirus', 'Scanner exit status') },
 		{ value : 2, title : t('files_antivirus', 'Scanner output') },
 	],
+	/**
+	 * Die Beschreibungen der mitgelieferten Regeln schreibt RuleMapper::populate()
+	 * englisch in die Datenbank. Zur Anzeige werden diese bekannten Texte
+	 * übersetzt; eigene Beschreibungen bleiben, wie sie sind.
+	 *
+	 * @param {string} text Beschreibung aus der Datenbank
+	 * @return {string}
+	 */
+	describe : function(text){
+		var bekannt = {
+			'Unknown option passed.': t('files_antivirus', 'Unknown option passed.'),
+			'Database initialization error.': t('files_antivirus', 'Database initialization error.'),
+			'Not supported file type.': t('files_antivirus', 'Not supported file type.'),
+			"Can't open directory.": t('files_antivirus', "Can't open directory."),
+			"Can't open file. (ofm)": t('files_antivirus', "Can't open file. (ofm)"),
+			'Error reading file. (ofm)': t('files_antivirus', 'Error reading file. (ofm)'),
+			"Can't stat input file / directory.": t('files_antivirus', "Can't stat input file / directory."),
+			"Can't get absolute path name of current working directory.": t('files_antivirus', "Can't get absolute path name of current working directory."),
+			'I/O error, please check your file system.': t('files_antivirus', 'I/O error, please check your file system.'),
+			"Can't initialize logger.": t('files_antivirus', "Can't initialize logger."),
+			"Can't create temporary files/directories (check permissions).": t('files_antivirus', "Can't create temporary files/directories (check permissions)."),
+			"Can't write to temporary directory (please specify another one).": t('files_antivirus', "Can't write to temporary directory (please specify another one)."),
+			"Can't allocate memory (calloc).": t('files_antivirus', "Can't allocate memory (calloc)."),
+			"Can't allocate memory (malloc).": t('files_antivirus', "Can't allocate memory (malloc).")
+		};
+		return Object.prototype.hasOwnProperty.call(bekannt, text) ? bekannt[text] : text;
+	},
+
 	init : function(){
 		$.get(OC.generateUrl('apps/files_antivirus/settings/rule/listall'),
 			function onSuccess(response){
@@ -37,7 +65,11 @@ var antivirusSettings = antivirusSettings || {
 		$('<td class="match editable" />').appendTo(row).text(
 				(data.status_type == 1 ? data.result : data.match)
 		);
-		$('<td class="description editable" />').appendTo(row).text(data.description);
+		// Original merken: unverändert gespeichert bleibt der Datenbankwert, nicht
+		// die Übersetzung der Anzeige.
+		$('<td class="description editable" />').appendTo(row)
+			.data('original', data.description)
+			.text(antivirusSettings.describe(data.description));
 		antivirusSettings.renderSelect(
 				$('<td class="scan-result" />').appendTo(row),
 				{ options : antivirusSettings.statuses, current : data.status }
@@ -51,6 +83,21 @@ var antivirusSettings = antivirusSettings || {
 			.appendTo(row);
 	},
 
+	/**
+	 * Beschreibung zum Speichern: steht noch die übersetzte Anzeige des
+	 * Originals in der Zelle, geht das Original zurück an den Server.
+	 *
+	 * @param {jQuery} cell Zelle .description
+	 * @return {string}
+	 */
+	descriptionOf : function(cell){
+		var original = cell.data('original');
+		if (typeof original === 'string' && cell.text() === antivirusSettings.describe(original)) {
+			return original;
+		}
+		return cell.text();
+	},
+
 	onSave : function(){
 		var node = $(this),
 		row = $(node).parent(),
@@ -58,7 +105,7 @@ var antivirusSettings = antivirusSettings || {
 			id : row.data('id'),
 			statusType : row.find('.status-type select').val(),
 			match : row.children('.match').text(),
-			description : row.children('.description').text(),
+			description : antivirusSettings.descriptionOf(row.children('.description')),
 			status : row.find('.scan-result select').val()
 		};
 
