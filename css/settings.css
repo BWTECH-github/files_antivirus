@@ -4,20 +4,78 @@
 	margin-top: 14px;
 }
 
+/* Redesign: Beschriftung über dem Feld, die Einheit („Bytes“) daneben. Die
+   alte Spalte aus 280 px breiten, rechtsbündigen Beschriftungen passte in
+   keine schmale Karte: bei 320 px standen die Felder rechts außerhalb und das
+   Formular rollte waagerecht. */
 .section-antivirus label,
 .section-antivirus .av_display_label {
 	display: inline-block;
-	width: 280px;
 	margin-right: 6px;
-	text-align: right;
-}
-
-#av_cmd_options{
-	vertical-align: top;
-}
-
-.section-antivirus .a-left{
 	text-align: left;
+}
+
+/* Ein fieldset ist per Browservorgabe mindestens so breit wie sein Inhalt
+   (min-inline-size: min-content) – es war 442 px breit, die Karte 284 px. */
+#antivirus .personalblock {
+	min-width: 0;
+}
+
+#antivirus .personalblock > p {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px 8px;
+}
+
+#antivirus .personalblock > p > label:first-child,
+#antivirus .personalblock > p > .av_display_label,
+#antivirus .personalblock > p > em {
+	flex: 0 0 100%;
+	margin: 0;
+}
+
+/* Pfade und Optionen aus config.php haben oft keine Leerzeichen. */
+#av_path,
+#av_cmd_options {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+/* Felder so breit wie ihr üblicher Inhalt, höchstens so breit wie die Karte;
+   die 130 px des Kerns schnitten „/run/clamav/clamd.ctl“ ab. */
+#antivirus .personalblock input[type="text"] {
+	width: 24rem;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+#antivirus #av_port,
+#antivirus #av_stream_max_length,
+#antivirus #av_max_file_size {
+	width: 12rem;
+}
+
+/* Eine Auswahl kann nicht umbrechen, und „McAfee Webgateway / Skyhigh Secure
+   Web Gateway (ICAP)“ ist breiter als eine schmale Karte. Die Auswahl wächst
+   mit der gewählten Option (field-sizing; ohne Unterstützung so breit wie die
+   längste Option), und nur dann rollt die Zeile waagerecht – statt den Text
+   unter dem Pfeil abzuschneiden. Drei Kennungen gegen das max-width: 100% des
+   Kerns für Felder in Karten (zwei Kennungen). */
+#antivirus .personalblock > p.av_mode {
+	overflow-x: auto;
+	/* Der Rollbereich reicht 16 px in den Innenabstand der Karte: bei 320 px
+	   ist „ClamAV Daemon (Unix Socket)“ 2 px breiter als die Spalte und bekam
+	   sonst einen Rollbalken für zwei Pixel. */
+	margin-inline-end: -16px;
+}
+
+#body-settings #antivirus #av_mode {
+	flex: 0 0 auto;
+	field-sizing: content;
+	min-width: min(100%, 16rem);
+	max-width: none;
+	margin-inline-end: 0;
 }
 
 .shaded{
@@ -29,10 +87,32 @@
 	position: relative;
 }
 
+/* Rechtsbündig ohne width: 100% plus margin-left (ragte 10 px über die Karte);
+   in schmalen Karten rutscht der zweite Knopf in die nächste Zeile. */
 #antivirus-buttons{
-	width: 100%;
-	margin-left:10px;
-	text-align:right;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* Die Regeltabelle (sechs Spalten, zwei Auswahlen je Zeile) ist breiter als
+   eine schmale Karte: sie rollt in ihrem eigenen Bereich, nicht die Seite.
+   Kopf- und Textzellen brechen um – der Kern vererbt white-space: nowrap an
+   Tabellen, die Tabelle war dadurch auch bei 1280 px 1243 px breit. */
+.section-antivirus .antivirus-regeln {
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+#antivirus-statuses {
+	white-space: normal;
+}
+
+#antivirus-statuses td.match,
+#antivirus-statuses td.description {
+	min-width: 6rem;
+	overflow-wrap: anywhere;
 }
 
 #antivirus-add{
