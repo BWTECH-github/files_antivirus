@@ -92,16 +92,16 @@ script('files_antivirus', 'settings');
 				<select id="av_infected_action" name="avInfectedAction"><?php print_unescaped(html_select_options(['only_log' => $l->t('Only log'), 'delete' => $l->t('Delete file')], $_['avInfectedAction'])) ?></select>
 			</p>
 			<button id="av_submit" type="button"><?php p($l->t('Save'));?></button>
-			<span id="antivirus_save_msg"></span>
+			<span id="antivirus_save_msg" class="msg"></span>
 		</fieldset>
 	</form>
 	<hr />
-	<button id="antivirus-advanced"><?php p($l->t('Advanced')) ?></button>
-	<div class="spoiler">
+	<button type="button" id="antivirus-advanced" aria-expanded="false" aria-controls="antivirus-spoiler"><?php p($l->t('Advanced')) ?></button>
+	<div class="spoiler" id="antivirus-spoiler">
 		<h3><?php p($l->t('Rules')) ?></h3>
 		<div id="antivirus-buttons">
-			<button id="antivirus-clear"><?php p($l->t('Clear All')) ?></button>
-			<button id="antivirus-reset"><?php p($l->t('Reset to defaults')) ?></button>
+			<button type="button" id="antivirus-clear"><?php p($l->t('Clear All')) ?></button>
+			<button type="button" id="antivirus-reset"><?php p($l->t('Reset to defaults')) ?></button>
 		</div>
 		<div class="antivirus-regeln">
 		<table id="antivirus-statuses" class="grid">
@@ -119,6 +119,6 @@ script('files_antivirus', 'settings');
 			</tbody>
 		</table>
 		</div>
-		<button id="antivirus-add" class="icon-add"><?php p($l->t('Add a rule')) ?></button>
+		<button type="button" id="antivirus-add" class="icon-add"><?php p($l->t('Add a rule')) ?></button>
 	</div>
 </div>

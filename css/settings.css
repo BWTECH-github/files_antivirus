@@ -78,6 +78,14 @@
 	margin-inline-end: 0;
 }
 
+/* Platz für den Pfeil: das alte „select { padding-right: 24px !important }“
+   des Kerns (inputs.css) schlägt die 40 px des Redesigns – ein Auswahlfeld so
+   breit wie seine längste Option („Nur protokollieren“) schob den Text bis
+   unter den Pfeil. */
+#antivirus .personalblock select {
+	padding-right: 40px !important;
+}
+
 .shaded{
 	/* WCAG 1.4.11: 0.55 statt 0.3, damit das schwarze Haekchen-Glyph >=3:1 Kontrast gegen Weiss erreicht */
 	opacity: .55;

@@ -58,21 +58,23 @@ var antivirusSettings = antivirusSettings || {
 			.attr('title', t('files_antivirus', 'Save rule'))
 			.attr('aria-disabled', 'true')
 			.appendTo(row);
+		// Auswahlfelder tragen die Spaltenüberschrift als Namen (axe select-name)
 		antivirusSettings.renderSelect(
 				$('<td class="status-type" />').appendTo(row),
-				{options : antivirusSettings.types, current : data.status_type}
+				{options : antivirusSettings.types, current : data.status_type, label : t('files_antivirus', 'Match by')}
 		);
-		$('<td class="match editable" />').appendTo(row).text(
+		// Textzellen per Tastatur erreichbar (Enter oder F2 öffnet das Feld)
+		$('<td class="match editable" tabindex="0" />').appendTo(row).text(
 				(data.status_type == 1 ? data.result : data.match)
 		);
 		// Original merken: unverändert gespeichert bleibt der Datenbankwert, nicht
 		// die Übersetzung der Anzeige.
-		$('<td class="description editable" />').appendTo(row)
+		$('<td class="description editable" tabindex="0" />').appendTo(row)
 			.data('original', data.description)
 			.text(antivirusSettings.describe(data.description));
 		antivirusSettings.renderSelect(
 				$('<td class="scan-result" />').appendTo(row),
-				{ options : antivirusSettings.statuses, current : data.status }
+				{ options : antivirusSettings.statuses, current : data.status, label : t('files_antivirus', 'Mark as') }
 		);
 
 		$('<td class="icon-delete" />')
@@ -99,6 +101,9 @@ var antivirusSettings = antivirusSettings || {
 	},
 
 	onSave : function(){
+		if ($(this).attr('aria-disabled') === 'true') {
+			return;
+		}
 		var node = $(this),
 		row = $(node).parent(),
 		data = {
@@ -125,7 +130,14 @@ var antivirusSettings = antivirusSettings || {
 		}
 		var current = $(node).text();
 		$(node).text('');
-		$('<input />').val(current)
+		// Enter übernimmt, Escape verwirft – danach steht der Fokus wieder auf
+		// der Zelle. Tab bleibt Tab: Fokus wandert zum nächsten Bedienelement
+		// (vorher sprang er zwischen den beiden Textzellen hin und her); landet
+		// er dabei auf der anderen Textzelle, öffnet sie gleich ihr Feld.
+		var zurueck = false;
+		var spalte = $(node).closest('table').find('thead th').eq($(node).index()).text();
+		$('<input type="text" />').val(current)
+			.attr('aria-label', spalte)
 			.on('blur', function(){
 				var newValue = $(this).val();
 				if (newValue !== current){
@@ -133,42 +145,60 @@ var antivirusSettings = antivirusSettings || {
 				}
 				$(this).remove();
 				$(node).text(newValue);
+				if (zurueck) {
+					$(node).trigger('focus');
+				}
 			})
-			.on('keyup', function(event){
+			.on('keydown', function(event){
+				if (event.keyCode === 9) {
+					antivirusSettings.weiterBearbeiten = true;
+					setTimeout(function(){ antivirusSettings.weiterBearbeiten = false; }, 0);
+					return;
+				}
 				if (event.keyCode === 27) {
 					$(this).val(current);
-					$(this).blur();
-					event.preventDefault();
 				}
-				if (event.keyCode === 13) {
-					$(this).blur();
+				if (event.keyCode === 27 || event.keyCode === 13) {
 					event.preventDefault();
-				}
-			})
-			.on('keydown', function(){
-				if (event.keyCode === 9) {
-					$(this).parent('td').siblings('td.editable').first().trigger('click');
-					event.preventDefault();
+					event.stopPropagation();
+					zurueck = true;
+					$(this).trigger('blur');
 				}
 			})
 			.appendTo(node)
-				.focus()
-		;
-
+			.trigger('focus');
 	},
 
 	deleteRow : function(){
 		var row = $(this).parent();
+		// Fokus nicht mit der Zeile verlieren: nächste Zeile, sonst vorige, sonst „Regel hinzufügen“
+		var naechste = row.next('tr').find('td.icon-delete');
+		if (!naechste.length) {
+			naechste = row.prev('tr').find('td.icon-delete');
+		}
+		if (!naechste.length) {
+			naechste = $('#antivirus-add');
+		}
+		if (!row.data('id')) {
+			// Noch nicht gespeicherte Zeile: nur aus der Tabelle nehmen
+			row.remove();
+			naechste.trigger('focus');
+			return;
+		}
 		row.hide();
+		naechste.trigger('focus');
 		$.post(OC.generateUrl('apps/files_antivirus/settings/rule/delete'), {id : row.data('id')},
 			function onSuccess(){
 				row.remove();
 			}
-		);
+		).fail(function(){
+			row.show();
+		});
 	},
 
 	renderSelect : function(parent, data){
 		var select = $('<select />')
+				.attr('aria-label', data.label || null)
 				.on('change', function(){
 					$(this).parents('tr').first().find('td.icon-checkmark').removeClass('shaded').attr('aria-disabled', 'false');
 				});
@@ -262,15 +292,25 @@ $(document).ready(function() {
 		}
 	});
 
+	// Die Regeln werden nur beim ersten Aufklappen geladen – vorher hängte
+	// jedes erneute Aufklappen alle Regeln ein weiteres Mal an die Tabelle.
 	$('#antivirus-advanced').on('click', function () {
-		$('.section-antivirus .spoiler').toggle();
-		antivirusSettings.init();
+		var $spoiler = $('#antivirus-spoiler');
+		var offen = !$spoiler.is(':visible');
+		$spoiler.toggle(offen);
+		$(this).attr('aria-expanded', offen ? 'true' : 'false');
+		if (offen && !antivirusSettings.geladen) {
+			antivirusSettings.geladen = true;
+			antivirusSettings.init();
+		}
 	});
 
+	// Nach Zurücksetzen/Leeren die Tabelle ganz neu aufbauen (vorher blieben
+	// leere Zeilen stehen, weil nur die Zellen entfernt wurden)
 	$('#antivirus-reset').on('click', function (){
 		$.post(OC.generateUrl('apps/files_antivirus/settings/rule/reset'),
 			function onSuccess(){
-				$('#antivirus-statuses tbody td').remove();
+				$('#antivirus-statuses tbody').empty();
 				antivirusSettings.init();
 			});
 	});
@@ -278,7 +318,7 @@ $(document).ready(function() {
 	$('#antivirus-clear').on('click', function (){
 		$.post(OC.generateUrl('apps/files_antivirus/settings/rule/clear'),
 			function onSuccess(){
-				$('#antivirus-statuses tbody td').remove();
+				$('#antivirus-statuses tbody').empty();
 				antivirusSettings.init();
 			});
 	});
@@ -295,8 +335,23 @@ $(document).ready(function() {
 	});
 
 	$('#antivirus-statuses tbody').on('click', 'td.editable', function(){
-		console.log(this);
 		antivirusSettings.onEdit(this);
+	});
+	$('#antivirus-statuses tbody').on('focus', 'td.editable', function(){
+		if (antivirusSettings.weiterBearbeiten) {
+			antivirusSettings.weiterBearbeiten = false;
+			antivirusSettings.onEdit(this);
+		}
+	});
+	$('#antivirus-statuses tbody').on('keydown', 'td.editable', function(event){
+		// Tasten im geöffneten Feld gehören dem Feld
+		if (event.target !== this) {
+			return;
+		}
+		if (event.keyCode === 13 || event.keyCode === 113) {
+			event.preventDefault();
+			antivirusSettings.onEdit(this);
+		}
 	});
 	$('#antivirus-statuses tbody').on('click', 'td.icon-delete', antivirusSettings.deleteRow);
 	$('#antivirus-statuses tbody').on('click', 'td.icon-checkmark', antivirusSettings.onSave);

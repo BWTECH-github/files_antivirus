@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.14] - 2026-10-29
+
+Redesign-Linie.
+
+### Fixed
+
+- Regeln unter „Erweitert“: erneutes Aufklappen zeigt jede Regel nur einmal,
+  Zurücksetzen und Leeren hinterlassen keine leeren Zeilen, der Knopf meldet
+  seinen Zustand (aria-expanded).
+- Regeln per Tastatur: Textzellen sind erreichbar (Enter/F2 bearbeitet,
+  Escape verwirft), Tab verlässt das Feld, der Fokus bleibt nach Bearbeiten
+  und Löschen in der Tabelle; die Auswahlfelder tragen die Spaltennamen.
+- „Gespeichert“ steht in den Farben der Redesign-Meldungen (vorher Grau auf
+  Grün, Kontrast 3,5:1).
+- Auswahlfelder der Karte: der Text der längsten Option („Nur
+  protokollieren“) reicht nicht mehr bis unter den Pfeil.
+
 ## [1.3.13] - 2026-10-08
 
 Redesign-Linie. 1.3.12 ist für die Sprachrunde (Zweig fix-sprache-2) vergeben.
