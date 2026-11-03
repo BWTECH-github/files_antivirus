@@ -49,6 +49,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Scanner einde status of op te zoeken signature",
     "Description" : "Beschrijving",
     "Mark as" : "Markeren als",
-    "Add a rule" : "Regel toevoegen"
+    "Add a rule" : "Regel toevoegen",
+    "Delete all rules" : "Alle regels verwijderen",
+    "Delete all rules? Added or changed rules will be lost." : "Alle regels verwijderen? Toegevoegde of gewijzigde regels gaan verloren.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Alle regels vervangen door de standaardregels? Toegevoegde of gewijzigde regels gaan verloren."
 },
 "nplurals=2; plural=(n != 1);");

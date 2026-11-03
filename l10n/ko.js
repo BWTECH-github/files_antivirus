@@ -58,6 +58,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "검사 도구 종료 결과 및 검색할 패턴",
     "Description" : "종류",
     "Mark as" : "다음으로 표시",
-    "Add a rule" : "규칙 추가"
+    "Add a rule" : "규칙 추가",
+    "Delete all rules" : "모든 규칙 삭제",
+    "Delete all rules? Added or changed rules will be lost." : "모든 규칙을 삭제하시겠습니까? 추가하거나 변경한 규칙은 사라집니다.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "모든 규칙을 기본 규칙으로 바꾸시겠습니까? 추가하거나 변경한 규칙은 사라집니다."
 },
 "nplurals=1; plural=0;");

@@ -56,6 +56,9 @@
     "Scanner exit status or signature to search" : "Състояние на изход от скенера или подпис за търсене",
     "Description" : "Описание",
     "Mark as" : "Отбелязване като",
-    "Add a rule" : "Добавяне на правило"
+    "Add a rule" : "Добавяне на правило",
+    "Delete all rules" : "Изтриване на всички правила",
+    "Delete all rules? Added or changed rules will be lost." : "Изтриване на всички правила? Добавените или променените правила ще бъдат загубени.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Замяна на всички правила с правилата по подразбиране? Добавените или променените правила ще бъдат загубени."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

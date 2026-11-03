@@ -49,6 +49,44 @@ var antivirusSettings = antivirusSettings || {
 		);
 	},
 
+	/**
+	 * „Alles säubern“ und „Auf Standard rücksetzen“ ändern alle Regeln auf
+	 * einmal – deshalb erst nach einer Rückfrage im Kerndialog. Der
+	 * Bestätigungsknopf nennt die Handlung; Escape, das Kreuz und
+	 * „Abbrechen“ lassen die Regeln, wie sie sind. Den Fokus legt der
+	 * Kerndialog beim Schließen auf den auslösenden Knopf zurück.
+	 */
+	alleRegelnAendern : function(aktion, titel, frage, knopf){
+		// Sperre gegen Doppelklick: solange die Dialogvorlage beim ersten Mal
+		// noch lädt (sonst zwei Rückfragen übereinander) und solange die
+		// Anfrage läuft (zweimal Rücksetzen gleichzeitig legt die
+		// Standardregeln doppelt an)
+		if (antivirusSettings.regelnBeschaeftigt) {
+			return;
+		}
+		antivirusSettings.regelnBeschaeftigt = true;
+		$.when(OC.dialogs.confirm(frage, titel, function(bestaetigt){
+			if (!bestaetigt) {
+				return;
+			}
+			antivirusSettings.regelnBeschaeftigt = true;
+			// Nach Zurücksetzen/Leeren die Tabelle ganz neu aufbauen (vorher
+			// blieben leere Zeilen stehen, weil nur die Zellen entfernt wurden)
+			$.post(OC.generateUrl('apps/files_antivirus/settings/rule/' + aktion),
+				function onSuccess(){
+					$('#antivirus-statuses tbody').empty();
+					antivirusSettings.init();
+				}
+			).always(function(){
+				antivirusSettings.regelnBeschaeftigt = false;
+			});
+		}, true, t('core', 'Cancel'), knopf)).always(function(){
+			// Dialog steht (oder kam nicht zustande): ab hier fängt die
+			// modale Abdeckung weitere Klicks ab
+			antivirusSettings.regelnBeschaeftigt = false;
+		});
+	},
+
 	renderRow : function(data){
 		var row = $('<tr />').data('id', data.id).appendTo($('#antivirus-statuses'));
 		$('<td class="icon-checkmark shaded" />')
@@ -305,22 +343,22 @@ $(document).ready(function() {
 		}
 	});
 
-	// Nach Zurücksetzen/Leeren die Tabelle ganz neu aufbauen (vorher blieben
-	// leere Zeilen stehen, weil nur die Zellen entfernt wurden)
 	$('#antivirus-reset').on('click', function (){
-		$.post(OC.generateUrl('apps/files_antivirus/settings/rule/reset'),
-			function onSuccess(){
-				$('#antivirus-statuses tbody').empty();
-				antivirusSettings.init();
-			});
+		antivirusSettings.alleRegelnAendern(
+			'reset',
+			t('files_antivirus', 'Reset to defaults'),
+			t('files_antivirus', 'Replace all rules with the default rules? Added or changed rules will be lost.'),
+			t('files_antivirus', 'Reset to defaults')
+		);
 	});
 
 	$('#antivirus-clear').on('click', function (){
-		$.post(OC.generateUrl('apps/files_antivirus/settings/rule/clear'),
-			function onSuccess(){
-				$('#antivirus-statuses tbody').empty();
-				antivirusSettings.init();
-			});
+		antivirusSettings.alleRegelnAendern(
+			'clear',
+			t('files_antivirus', 'Clear All'),
+			t('files_antivirus', 'Delete all rules? Added or changed rules will be lost.'),
+			t('files_antivirus', 'Delete all rules')
+		);
 	});
 
 	$('#antivirus-add').on('click', function (){

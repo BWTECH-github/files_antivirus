@@ -74,6 +74,9 @@
     "Can't create temporary files/directories (check permissions)." : "Temporäre Dateien/Verzeichnisse können nicht angelegt werden (Berechtigungen prüfen).",
     "Can't write to temporary directory (please specify another one)." : "In das temporäre Verzeichnis kann nicht geschrieben werden (bitte geben Sie ein anderes an).",
     "Can't allocate memory (calloc)." : "Speicher kann nicht reserviert werden (calloc).",
-    "Can't allocate memory (malloc)." : "Speicher kann nicht reserviert werden (malloc)."
+    "Can't allocate memory (malloc)." : "Speicher kann nicht reserviert werden (malloc).",
+    "Delete all rules" : "Alle Regeln löschen",
+    "Delete all rules? Added or changed rules will be lost." : "Alle Regeln löschen? Hinzugefügte oder geänderte Regeln gehen verloren.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Alle Regeln durch die Standardregeln ersetzen? Hinzugefügte oder geänderte Regeln gehen verloren."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

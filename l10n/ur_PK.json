@@ -1,6 +1,9 @@
 { "translations": {
     "Save" : "حفظ",
     "Advanced" : "ایڈوانسڈ",
-    "Description" : "تصریح"
+    "Description" : "تصریح",
+    "Delete all rules" : "تمام قواعد حذف کریں",
+    "Delete all rules? Added or changed rules will be lost." : "تمام قواعد حذف کریں؟ شامل کیے گئے یا تبدیل کیے گئے قواعد ضائع ہو جائیں گے۔",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "تمام قواعد کو طے شدہ قواعد سے بدل دیں؟ شامل کیے گئے یا تبدیل کیے گئے قواعد ضائع ہو جائیں گے۔"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

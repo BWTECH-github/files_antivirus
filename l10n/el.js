@@ -51,6 +51,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Κατάσταση εξόδου σαρωτή ή υπογραφή προς αναζήτηση",
     "Description" : "Περιγραφή",
     "Mark as" : "Μαρκάρισμα ως",
-    "Add a rule" : "Προσθήκη κανόνα"
+    "Add a rule" : "Προσθήκη κανόνα",
+    "Delete all rules" : "Διαγραφή όλων των κανόνων",
+    "Delete all rules? Added or changed rules will be lost." : "Διαγραφή όλων των κανόνων; Οι κανόνες που προστέθηκαν ή άλλαξαν θα χαθούν.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Αντικατάσταση όλων των κανόνων με τους προεπιλεγμένους κανόνες; Οι κανόνες που προστέθηκαν ή άλλαξαν θα χαθούν."
 },
 "nplurals=2; plural=(n != 1);");

@@ -51,6 +51,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "حالة خروج الفاحص توقيع البحث",
     "Description" : "الوصف",
     "Mark as" : "تمييز كـ",
-    "Add a rule" : "أضف قاعدة"
+    "Add a rule" : "أضف قاعدة",
+    "Delete all rules" : "حذف كل القواعد",
+    "Delete all rules? Added or changed rules will be lost." : "حذف كل القواعد؟ ستُفقد القواعد المضافة أو المعدّلة.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "استبدال كل القواعد بالقواعد الافتراضية؟ ستُفقد القواعد المضافة أو المعدّلة."
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

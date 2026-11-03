@@ -58,6 +58,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "سايىلىغۇچنىڭ چېكىنىش ھالىتى ياكى ئىمزا",
     "Description" : "چۈشەندۈرۈش",
     "Mark as" : "دەپ بەلگە قويۇڭ",
-    "Add a rule" : "قائىدە قوشۇڭ"
+    "Add a rule" : "قائىدە قوشۇڭ",
+    "Delete all rules" : "ھەممە قائىدىلەرنى ئۆچۈر",
+    "Delete all rules? Added or changed rules will be lost." : "ھەممە قائىدىلەر ئۆچۈرۈلسۇنمۇ؟ قوشۇلغان ياكى ئۆزگەرتىلگەن قائىدىلەر يوقىلىدۇ.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "ھەممە قائىدىلەر سۈكۈتتىكى قائىدىلەر بىلەن ئالماشتۇرۇلسۇنمۇ؟ قوشۇلغان ياكى ئۆزگەرتىلگەن قائىدىلەر يوقىلىدۇ."
 },
 "nplurals=2; plural=(n != 1);");

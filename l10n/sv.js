@@ -44,6 +44,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Skannerns slutstatus eller signatur för sökning",
     "Description" : "Beskrivning",
     "Mark as" : "Märk som",
-    "Add a rule" : "Lägg till en regel"
+    "Add a rule" : "Lägg till en regel",
+    "Delete all rules" : "Radera alla regler",
+    "Delete all rules? Added or changed rules will be lost." : "Radera alla regler? Tillagda eller ändrade regler går förlorade.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Ersätta alla regler med standardreglerna? Tillagda eller ändrade regler går förlorade."
 },
 "nplurals=2; plural=(n != 1);");

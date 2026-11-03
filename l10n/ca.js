@@ -41,6 +41,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Estat de sortida de l'escànner o signatura a cercar",
     "Description" : "Descripció",
     "Mark as" : "Marca com a",
-    "Add a rule" : "Afegeix una regla"
+    "Add a rule" : "Afegeix una regla",
+    "Delete all rules" : "Elimina totes les regles",
+    "Delete all rules? Added or changed rules will be lost." : "Voleu eliminar totes les regles? Es perdran les regles afegides o modificades.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Voleu substituir totes les regles per les regles per defecte? Es perdran les regles afegides o modificades."
 },
 "nplurals=2; plural=(n != 1);");

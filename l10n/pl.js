@@ -49,6 +49,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Status zakończenia skanera lub sygnatura do szukania",
     "Description" : "Opis",
     "Mark as" : "Oznacz jako",
-    "Add a rule" : "Dodaj regułę"
+    "Add a rule" : "Dodaj regułę",
+    "Delete all rules" : "Usuń wszystkie reguły",
+    "Delete all rules? Added or changed rules will be lost." : "Usunąć wszystkie reguły? Dodane lub zmienione reguły zostaną utracone.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Zastąpić wszystkie reguły regułami domyślnymi? Dodane lub zmienione reguły zostaną utracone."
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

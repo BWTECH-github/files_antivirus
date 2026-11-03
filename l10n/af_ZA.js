@@ -1,6 +1,9 @@
 OC.L10N.register(
     "files_antivirus",
     {
-    "Advanced" : "Gevorderd"
+    "Advanced" : "Gevorderd",
+    "Delete all rules" : "Skrap alle reëls",
+    "Delete all rules? Added or changed rules will be lost." : "Skrap alle reëls? Bygevoegde of gewysigde reëls gaan verlore.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Vervang alle reëls met die verstekreëls? Bygevoegde of gewysigde reëls gaan verlore."
 },
 "nplurals=2; plural=(n != 1);");

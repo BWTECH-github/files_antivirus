@@ -56,6 +56,9 @@
     "Scanner exit status or signature to search" : "Estado de la salida del escáner o firma para buscar",
     "Description" : "Descripción",
     "Mark as" : "Marcar como",
-    "Add a rule" : "Añadir una regla"
+    "Add a rule" : "Añadir una regla",
+    "Delete all rules" : "Eliminar todas las reglas",
+    "Delete all rules? Added or changed rules will be lost." : "¿Eliminar todas las reglas? Se perderán las reglas añadidas o modificadas.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "¿Sustituir todas las reglas por las reglas predeterminadas? Se perderán las reglas añadidas o modificadas."
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

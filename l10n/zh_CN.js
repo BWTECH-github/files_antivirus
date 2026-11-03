@@ -51,6 +51,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "用于搜索的扫描器退出状态或签名",
     "Description" : "描述",
     "Mark as" : "标记为",
-    "Add a rule" : "添加规则"
+    "Add a rule" : "添加规则",
+    "Delete all rules" : "删除所有规则",
+    "Delete all rules? Added or changed rules will be lost." : "删除所有规则？添加或修改的规则将会丢失。",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "用默认规则替换所有规则？添加或修改的规则将会丢失。"
 },
 "nplurals=1; plural=0;");

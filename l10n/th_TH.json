@@ -49,6 +49,9 @@
     "Scanner exit status or signature to search" : "Scanner exit statusหรือค้นหาลายเซ็น",
     "Description" : "คำอธิบาย",
     "Mark as" : "ทำเครื่องหมายเป็น",
-    "Add a rule" : "เพิ่มกฎ"
+    "Add a rule" : "เพิ่มกฎ",
+    "Delete all rules" : "ลบกฎทั้งหมด",
+    "Delete all rules? Added or changed rules will be lost." : "ลบกฎทั้งหมดหรือไม่? กฎที่เพิ่มหรือแก้ไขไว้จะหายไป",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "แทนที่กฎทั้งหมดด้วยกฎค่าเริ่มต้นหรือไม่? กฎที่เพิ่มหรือแก้ไขไว้จะหายไป"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

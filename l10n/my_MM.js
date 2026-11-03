@@ -2,6 +2,9 @@ OC.L10N.register(
     "files_antivirus",
     {
     "Advanced" : "အဆင့်မြင့်",
-    "Description" : "ဖော်ပြချက်"
+    "Description" : "ဖော်ပြချက်",
+    "Delete all rules" : "စည်းမျဉ်းအားလုံးကို ဖျက်ရန်",
+    "Delete all rules? Added or changed rules will be lost." : "စည်းမျဉ်းအားလုံးကို ဖျက်မလား။ ထည့်ထားသော သို့မဟုတ် ပြောင်းထားသော စည်းမျဉ်းများ ပျောက်သွားပါမည်။",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "စည်းမျဉ်းအားလုံးကို မူလစည်းမျဉ်းများဖြင့် အစားထိုးမလား။ ထည့်ထားသော သို့မဟုတ် ပြောင်းထားသော စည်းမျဉ်းများ ပျောက်သွားပါမည်။"
 },
 "nplurals=1; plural=0;");

@@ -27,6 +27,9 @@ OC.L10N.register(
     "Delete file" : "Trinti failą",
     "Save" : "Išsaugoti",
     "Advanced" : "Išplėstiniai",
-    "Description" : "Aprašymas"
+    "Description" : "Aprašymas",
+    "Delete all rules" : "Ištrinti visas taisykles",
+    "Delete all rules? Added or changed rules will be lost." : "Ištrinti visas taisykles? Pridėtos ar pakeistos taisyklės bus prarastos.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Pakeisti visas taisykles numatytosiomis taisyklėmis? Pridėtos ar pakeistos taisyklės bus prarastos."
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);");

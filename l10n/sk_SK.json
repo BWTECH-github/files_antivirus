@@ -39,6 +39,9 @@
     "Scanner exit status or signature to search" : "Kód, ktorý vrátil antivírus alebo signatúra, ktorá sa má hľadať",
     "Description" : "Popis",
     "Mark as" : "Označiť ako",
-    "Add a rule" : "Pridať pravidlo"
+    "Add a rule" : "Pridať pravidlo",
+    "Delete all rules" : "Zmazať všetky pravidlá",
+    "Delete all rules? Added or changed rules will be lost." : "Zmazať všetky pravidlá? Pridané alebo zmenené pravidlá sa stratia.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Nahradiť všetky pravidlá predvolenými pravidlami? Pridané alebo zmenené pravidlá sa stratia."
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }

@@ -49,6 +49,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "スキャナーの終了ステータスもしくは検索するシグネチャ",
     "Description" : "説明",
     "Mark as" : "マーク",
-    "Add a rule" : "ルールを追加"
+    "Add a rule" : "ルールを追加",
+    "Delete all rules" : "すべてのルールを削除",
+    "Delete all rules? Added or changed rules will be lost." : "すべてのルールを削除しますか？追加または変更したルールは失われます。",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "すべてのルールをデフォルトのルールに置き換えますか？追加または変更したルールは失われます。"
 },
 "nplurals=1; plural=0;");

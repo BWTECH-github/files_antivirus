@@ -39,6 +39,9 @@
     "Scanner exit status or signature to search" : "Yoxlanış çixiş statusu yada axtarış üçün imza",
     "Description" : "Açıqlanma",
     "Mark as" : "Kimi qeyd",
-    "Add a rule" : "Qayda əlavə et"
+    "Add a rule" : "Qayda əlavə et",
+    "Delete all rules" : "Bütün qaydaları sil",
+    "Delete all rules? Added or changed rules will be lost." : "Bütün qaydalar silinsin? Əlavə edilmiş və ya dəyişdirilmiş qaydalar itəcək.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Bütün qaydalar standart qaydalarla əvəz edilsin? Əlavə edilmiş və ya dəyişdirilmiş qaydalar itəcək."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

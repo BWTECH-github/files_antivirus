@@ -51,6 +51,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Estado da saída da análise ou sinatura para buscar",
     "Description" : "Descrición",
     "Mark as" : "Marcar como",
-    "Add a rule" : "Engadir unha regra"
+    "Add a rule" : "Engadir unha regra",
+    "Delete all rules" : "Eliminar todas as regras",
+    "Delete all rules? Added or changed rules will be lost." : "Eliminar todas as regras? Perderanse as regras engadidas ou modificadas.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Substituír todas as regras polas regras predeterminadas? Perderanse as regras engadidas ou modificadas."
 },
 "nplurals=2; plural=(n != 1);");

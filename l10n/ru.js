@@ -58,6 +58,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Статус сканера или сигнатура для поиска",
     "Description" : "Описание",
     "Mark as" : "Отметить как",
-    "Add a rule" : "Добавить правило"
+    "Add a rule" : "Добавить правило",
+    "Delete all rules" : "Удалить все правила",
+    "Delete all rules? Added or changed rules will be lost." : "Удалить все правила? Добавленные или изменённые правила будут потеряны.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Заменить все правила правилами по умолчанию? Добавленные или изменённые правила будут потеряны."
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

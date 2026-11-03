@@ -42,6 +42,9 @@
     "Scanner exit status or signature to search" : "Návratová hodnota skeneru nebo hledaný podpis",
     "Description" : "Popis",
     "Mark as" : "Označit jako",
-    "Add a rule" : "Přidat pravidlo"
+    "Add a rule" : "Přidat pravidlo",
+    "Delete all rules" : "Smazat všechna pravidla",
+    "Delete all rules? Added or changed rules will be lost." : "Smazat všechna pravidla? Přidaná nebo změněná pravidla budou ztracena.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Nahradit všechna pravidla výchozími pravidly? Přidaná nebo změněná pravidla budou ztracena."
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

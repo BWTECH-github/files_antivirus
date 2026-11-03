@@ -49,6 +49,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Etat de sortie du scanner ou signature à rechercher",
     "Description" : "Description",
     "Mark as" : "Marquer comme",
-    "Add a rule" : "Ajouter une règle"
+    "Add a rule" : "Ajouter une règle",
+    "Delete all rules" : "Supprimer toutes les règles",
+    "Delete all rules? Added or changed rules will be lost." : "Supprimer toutes les règles ? Les règles ajoutées ou modifiées seront perdues.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Remplacer toutes les règles par les règles par défaut ? Les règles ajoutées ou modifiées seront perdues."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

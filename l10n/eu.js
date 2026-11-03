@@ -43,6 +43,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Eskanerraren irteera egoera edo bilatzeko sinadura",
     "Description" : "Deskribapena",
     "Mark as" : "Markatu honela",
-    "Add a rule" : "Gehitu araua"
+    "Add a rule" : "Gehitu araua",
+    "Delete all rules" : "Ezabatu arau guztiak",
+    "Delete all rules? Added or changed rules will be lost." : "Arau guztiak ezabatu? Gehitutako edo aldatutako arauak galdu egingo dira.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Arau guztiak arau lehenetsiekin ordeztu? Gehitutako edo aldatutako arauak galdu egingo dira."
 },
 "nplurals=2; plural=(n != 1);");

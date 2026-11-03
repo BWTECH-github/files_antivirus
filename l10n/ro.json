@@ -22,6 +22,9 @@
     "Clear All" : "Curăță tot",
     "Reset to defaults" : "Resetează la valorile implicite",
     "Description" : "Descriere",
-    "Add a rule" : "Adaugă o regulă"
+    "Add a rule" : "Adaugă o regulă",
+    "Delete all rules" : "Șterge toate regulile",
+    "Delete all rules? Added or changed rules will be lost." : "Ștergeți toate regulile? Regulile adăugate sau modificate se vor pierde.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Înlocuiți toate regulile cu regulile implicite? Regulile adăugate sau modificate se vor pierde."
 },"pluralForm" :"nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));"
 }

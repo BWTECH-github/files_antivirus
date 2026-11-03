@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.3.15] - 2026-11-03
+
+Redesign-Linie.
+
+### Fixed
+
+- „Alles säubern“ und „Auf Standard rücksetzen“ fragen vor dem Ändern der
+  Regeln im Kerndialog nach; der Bestätigungsknopf nennt die Handlung,
+  Escape und „Abbrechen“ lassen die Regeln unverändert.
+
 ## [1.3.14] - 2026-10-29
 
 Redesign-Linie.

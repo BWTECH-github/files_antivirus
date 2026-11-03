@@ -56,6 +56,9 @@
     "Scanner exit status or signature to search" : "Scanner exit status or signature to search",
     "Description" : "Description",
     "Mark as" : "Mark as",
-    "Add a rule" : "Add a rule"
+    "Add a rule" : "Add a rule",
+    "Delete all rules" : "Delete all rules",
+    "Delete all rules? Added or changed rules will be lost." : "Delete all rules? Added or changed rules will be lost.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Replace all rules with the default rules? Added or changed rules will be lost."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

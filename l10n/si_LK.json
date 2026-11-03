@@ -8,6 +8,9 @@
     "Delete file" : "ගොනුය මකන්න",
     "Save" : "සුරකින්න",
     "Advanced" : "දියුණු/උසස්",
-    "Description" : "විස්තරය"
+    "Description" : "විස්තරය",
+    "Delete all rules" : "සියලු නීති මකන්න",
+    "Delete all rules? Added or changed rules will be lost." : "සියලු නීති මකන්නද? එක් කළ හෝ වෙනස් කළ නීති නැති වේ.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "සියලු නීති පෙරනිමි නීති මගින් ප්‍රතිස්ථාපනය කරන්නද? එක් කළ හෝ වෙනස් කළ නීති නැති වේ."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

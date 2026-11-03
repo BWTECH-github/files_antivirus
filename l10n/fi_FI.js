@@ -43,6 +43,9 @@ OC.L10N.register(
     "Reset to defaults" : "Palauta oletusarvot",
     "Description" : "Kuvaus",
     "Mark as" : "Merkitse",
-    "Add a rule" : "Lisää sääntö"
+    "Add a rule" : "Lisää sääntö",
+    "Delete all rules" : "Poista kaikki säännöt",
+    "Delete all rules? Added or changed rules will be lost." : "Poistetaanko kaikki säännöt? Lisätyt tai muutetut säännöt menetetään.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Korvataanko kaikki säännöt oletussäännöillä? Lisätyt tai muutetut säännöt menetetään."
 },
 "nplurals=2; plural=(n != 1);");

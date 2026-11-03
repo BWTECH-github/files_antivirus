@@ -56,6 +56,9 @@
     "Scanner exit status or signature to search" : "Aramak için tarayıcı çıkış durumu veya imza",
     "Description" : "Açıklama",
     "Mark as" : "Şu şekilde işaretle",
-    "Add a rule" : "Bir kural ekle"
+    "Add a rule" : "Bir kural ekle",
+    "Delete all rules" : "Tüm kuralları sil",
+    "Delete all rules? Added or changed rules will be lost." : "Tüm kurallar silinsin mi? Eklenen veya değiştirilen kurallar kaybolacak.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Tüm kurallar öntanımlı kurallarla değiştirilsin mi? Eklenen veya değiştirilen kurallar kaybolacak."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

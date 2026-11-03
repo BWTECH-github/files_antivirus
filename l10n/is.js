@@ -49,6 +49,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Staða skanna þegar hætt er eða auðkenni (signature) til að leita eftir",
     "Description" : "Lýsing",
     "Mark as" : "Merkja sem",
-    "Add a rule" : "Bæta við reglu"
+    "Add a rule" : "Bæta við reglu",
+    "Delete all rules" : "Eyða öllum reglum",
+    "Delete all rules? Added or changed rules will be lost." : "Eyða öllum reglum? Reglur sem bætt var við eða breytt glatast.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Skipta öllum reglum út fyrir sjálfgefnar reglur? Reglur sem bætt var við eða breytt glatast."
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

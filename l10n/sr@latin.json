@@ -38,6 +38,9 @@
     "Scanner exit status or signature to search" : "Izlazno stanje skenera ili potpis za pretragu",
     "Description" : "Opis",
     "Mark as" : "Obeleži kao",
-    "Add a rule" : "Dodaj pravilo"
+    "Add a rule" : "Dodaj pravilo",
+    "Delete all rules" : "Obriši sva pravila",
+    "Delete all rules? Added or changed rules will be lost." : "Obrisati sva pravila? Dodata ili izmenjena pravila biće izgubljena.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Zameniti sva pravila podrazumevanim pravilima? Dodata ili izmenjena pravila biće izgubljena."
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }

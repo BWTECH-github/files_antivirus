@@ -41,6 +41,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Estáu de salida del escáner o robla pa guetar",
     "Description" : "Descripción",
     "Mark as" : "Conseñar como",
-    "Add a rule" : "Amestar regla"
+    "Add a rule" : "Amestar regla",
+    "Delete all rules" : "Desaniciar toles regles",
+    "Delete all rules? Added or changed rules will be lost." : "¿Desaniciar toles regles? Les regles amestaes o camudaes van perdese.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "¿Trocar toles regles poles regles predeterminaes? Les regles amestaes o camudaes van perdese."
 },
 "nplurals=2; plural=(n != 1);");

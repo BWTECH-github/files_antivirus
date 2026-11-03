@@ -56,6 +56,9 @@
     "Scanner exit status or signature to search" : "Gjendje daljeje kontrolluesi ose nënshkrim për t’u kërkuar",
     "Description" : "Përshkrim",
     "Mark as" : "Shënoje si",
-    "Add a rule" : "Shtoni rregull"
+    "Add a rule" : "Shtoni rregull",
+    "Delete all rules" : "Fshiji krejt rregullat",
+    "Delete all rules? Added or changed rules will be lost." : "Të fshihen krejt rregullat? Rregullat e shtuara ose të ndryshuara do të humbasin.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Të zëvendësohen krejt rregullat me rregullat parazgjedhje? Rregullat e shtuara ose të ndryshuara do të humbasin."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -47,6 +47,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Skaneerija lõpetamise staatus või tunnusmärk, mida otsida",
     "Description" : "Kirjeldus",
     "Mark as" : "Märgi kui",
-    "Add a rule" : "Lisa reegel"
+    "Add a rule" : "Lisa reegel",
+    "Delete all rules" : "Kustuta kõik reeglid",
+    "Delete all rules? Added or changed rules will be lost." : "Kas kustutada kõik reeglid? Lisatud või muudetud reeglid lähevad kaotsi.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Kas asendada kõik reeglid vaikimisi reeglitega? Lisatud või muudetud reeglid lähevad kaotsi."
 },
 "nplurals=2; plural=(n != 1);");

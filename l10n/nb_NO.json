@@ -47,6 +47,9 @@
     "Scanner exit status or signature to search" : "Status fra skanning eller signatur for søk",
     "Description" : "Beskrivelse",
     "Mark as" : "Merk som",
-    "Add a rule" : "Legg til regel"
+    "Add a rule" : "Legg til regel",
+    "Delete all rules" : "Slett alle regler",
+    "Delete all rules? Added or changed rules will be lost." : "Slette alle regler? Regler som er lagt til eller endret, går tapt.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Erstatte alle regler med standardreglene? Regler som er lagt til eller endret, går tapt."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

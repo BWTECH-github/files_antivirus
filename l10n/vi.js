@@ -27,6 +27,9 @@ OC.L10N.register(
     "Delete file" : "Xóa tập tin",
     "Save" : "Lưu",
     "Advanced" : "Nâng cao",
-    "Description" : "Mô tả"
+    "Description" : "Mô tả",
+    "Delete all rules" : "Xóa tất cả quy tắc",
+    "Delete all rules? Added or changed rules will be lost." : "Xóa tất cả quy tắc? Các quy tắc đã thêm hoặc đã thay đổi sẽ bị mất.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Thay thế tất cả quy tắc bằng quy tắc mặc định? Các quy tắc đã thêm hoặc đã thay đổi sẽ bị mất."
 },
 "nplurals=1; plural=0;");

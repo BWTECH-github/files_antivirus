@@ -42,6 +42,9 @@
     "Scanner exit status or signature to search" : "وضعیت خروج اسکنر یا امضاء جستو جو",
     "Description" : "توضیحات",
     "Mark as" : "انتخاب به عنوان",
-    "Add a rule" : "افزودن قانون"
+    "Add a rule" : "افزودن قانون",
+    "Delete all rules" : "حذف همه قوانین",
+    "Delete all rules? Added or changed rules will be lost." : "همه قوانین حذف شوند؟ قوانین افزوده‌شده یا تغییریافته از دست می‌روند.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "همه قوانین با قوانین پیش‌فرض جایگزین شوند؟ قوانین افزوده‌شده یا تغییریافته از دست می‌روند."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

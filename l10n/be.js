@@ -7,6 +7,9 @@ OC.L10N.register(
     "File uploaded: {file}" : "Файл загружаны: {file}",
     "Antivirus Configuration" : "Канфігурацыі антывіруса",
     "Mode" : "Рэжым",
-    "Advanced" : "Дасведчаны"
+    "Advanced" : "Дасведчаны",
+    "Delete all rules" : "Выдаліць усе правілы",
+    "Delete all rules? Added or changed rules will be lost." : "Выдаліць усе правілы? Дададзеныя або змененыя правілы будуць страчаны.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Замяніць усе правілы стандартнымі? Дададзеныя або змененыя правілы будуць страчаны."
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

@@ -58,6 +58,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Stato di uscita dell'analizzatore o firma da cercare",
     "Description" : "Descrizione",
     "Mark as" : "Marca come",
-    "Add a rule" : "Aggiungi una regola"
+    "Add a rule" : "Aggiungi una regola",
+    "Delete all rules" : "Elimina tutte le regole",
+    "Delete all rules? Added or changed rules will be lost." : "Eliminare tutte le regole? Le regole aggiunte o modificate andranno perse.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Sostituire tutte le regole con le regole predefinite? Le regole aggiunte o modificate andranno perse."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

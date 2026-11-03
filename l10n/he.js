@@ -49,6 +49,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "סטטוס יציאת סורק או חתימה לחיפוש",
     "Description" : "תיאור",
     "Mark as" : "סמן כ-",
-    "Add a rule" : "הוספת חוק"
+    "Add a rule" : "הוספת חוק",
+    "Delete all rules" : "מחק את כל החוקים",
+    "Delete all rules? Added or changed rules will be lost." : "למחוק את כל החוקים? חוקים שנוספו או שונו יאבדו.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "להחליף את כל החוקים בחוקי ברירת המחדל? חוקים שנוספו או שונו יאבדו."
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

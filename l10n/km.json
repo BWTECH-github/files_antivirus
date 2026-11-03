@@ -14,6 +14,9 @@
     "Stream Length" : "រយៈពេល​ស្ទ្រីម",
     "Save" : "រក្សាទុក",
     "Advanced" : "កម្រិត​ខ្ពស់",
-    "Description" : "ការ​អធិប្បាយ"
+    "Description" : "ការ​អធិប្បាយ",
+    "Delete all rules" : "លុបច្បាប់ទាំងអស់",
+    "Delete all rules? Added or changed rules will be lost." : "លុបច្បាប់ទាំងអស់ឬ? ច្បាប់ដែលបានបន្ថែម ឬកែប្រែនឹងបាត់បង់។",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "ជំនួសច្បាប់ទាំងអស់ដោយច្បាប់លំនាំដើមឬ? ច្បាប់ដែលបានបន្ថែម ឬកែប្រែនឹងបាត់បង់។"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

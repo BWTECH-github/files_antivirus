@@ -47,6 +47,9 @@
     "Scanner exit status or signature to search" : "Ellenőrzés kilépés állapota vagy aláírás a kereséshez",
     "Description" : "Leírás",
     "Mark as" : "Jelöljük mint",
-    "Add a rule" : "Szabály hozzááadása"
+    "Add a rule" : "Szabály hozzááadása",
+    "Delete all rules" : "Összes szabály törlése",
+    "Delete all rules? Added or changed rules will be lost." : "Törli az összes szabályt? A hozzáadott vagy módosított szabályok elvesznek.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Lecseréli az összes szabályt az alapértelmezett szabályokra? A hozzáadott vagy módosított szabályok elvesznek."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

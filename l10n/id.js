@@ -46,6 +46,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Status keluar atau tandatangan pemindai untuk penelusuran",
     "Description" : "Keterangan",
     "Mark as" : "Tandai sebagai",
-    "Add a rule" : "Tambahkan aturan"
+    "Add a rule" : "Tambahkan aturan",
+    "Delete all rules" : "Hapus semua aturan",
+    "Delete all rules? Added or changed rules will be lost." : "Hapus semua aturan? Aturan yang ditambahkan atau diubah akan hilang.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Ganti semua aturan dengan aturan default? Aturan yang ditambahkan atau diubah akan hilang."
 },
 "nplurals=1; plural=0;");

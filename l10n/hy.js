@@ -2,6 +2,9 @@ OC.L10N.register(
     "files_antivirus",
     {
     "Save" : "Պահպանել",
-    "Description" : "Նկարագրություն"
+    "Description" : "Նկարագրություն",
+    "Delete all rules" : "Ջնջել բոլոր կանոնները",
+    "Delete all rules? Added or changed rules will be lost." : "Ջնջե՞լ բոլոր կանոնները։ Ավելացված կամ փոփոխված կանոնները կկորչեն։",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Փոխարինե՞լ բոլոր կանոնները լռելյայն կանոններով։ Ավելացված կամ փոփոխված կանոնները կկորչեն։"
 },
 "nplurals=2; plural=(n != 1);");

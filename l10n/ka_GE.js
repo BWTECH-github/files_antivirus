@@ -24,6 +24,9 @@ OC.L10N.register(
     "Delete file" : "ფაილების წაშლა",
     "Save" : "შენახვა",
     "Advanced" : "დამატებითი ფუნქციები",
-    "Description" : "გვერდის დახასიათება"
+    "Description" : "გვერდის დახასიათება",
+    "Delete all rules" : "ყველა წესის წაშლა",
+    "Delete all rules? Added or changed rules will be lost." : "წაიშალოს ყველა წესი? დამატებული ან შეცვლილი წესები დაიკარგება.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "ჩანაცვლდეს ყველა წესი ნაგულისხმევი წესებით? დამატებული ან შეცვლილი წესები დაიკარგება."
 },
 "nplurals=1; plural=0;");

@@ -27,6 +27,9 @@ OC.L10N.register(
     "Delete file" : "Dzēst datni",
     "Save" : "Saglabāt",
     "Advanced" : "Paplašināti",
-    "Description" : "Apraksts"
+    "Description" : "Apraksts",
+    "Delete all rules" : "Dzēst visus noteikumus",
+    "Delete all rules? Added or changed rules will be lost." : "Dzēst visus noteikumus? Pievienotie vai mainītie noteikumi tiks zaudēti.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Aizstāt visus noteikumus ar noklusējuma noteikumiem? Pievienotie vai mainītie noteikumi tiks zaudēti."
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

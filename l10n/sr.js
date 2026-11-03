@@ -41,6 +41,9 @@ OC.L10N.register(
     "Scanner exit status or signature to search" : "Излазно стање скенера или потпис за претрагу",
     "Description" : "Опис",
     "Mark as" : "Обележи као",
-    "Add a rule" : "Додај правило"
+    "Add a rule" : "Додај правило",
+    "Delete all rules" : "Обриши сва правила",
+    "Delete all rules? Added or changed rules will be lost." : "Обрисати сва правила? Додата или измењена правила биће изгубљена.",
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Заменити сва правила подразумеваним правилима? Додата или измењена правила биће изгубљена."
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
