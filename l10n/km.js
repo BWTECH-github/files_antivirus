@@ -19,6 +19,8 @@ OC.L10N.register(
     "Description" : "ការ​អធិប្បាយ",
     "Delete all rules" : "លុបច្បាប់ទាំងអស់",
     "Delete all rules? Added or changed rules will be lost." : "លុបច្បាប់ទាំងអស់ឬ? ច្បាប់ដែលបានបន្ថែម ឬកែប្រែនឹងបាត់បង់។",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "ជំនួសច្បាប់ទាំងអស់ដោយច្បាប់លំនាំដើមឬ? ច្បាប់ដែលបានបន្ថែម ឬកែប្រែនឹងបាត់បង់។"
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "ជំនួសច្បាប់ទាំងអស់ដោយច្បាប់លំនាំដើមឬ? ច្បាប់ដែលបានបន្ថែម ឬកែប្រែនឹងបាត់បង់។",
+    "Clear All" : "សម្អាតទាំងអស់",
+    "Reset to defaults" : "កំណត់ទៅលំនាំដើមវិញ"
 },
 "nplurals=1; plural=0;");

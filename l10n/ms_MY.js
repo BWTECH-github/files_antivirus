@@ -6,6 +6,8 @@ OC.L10N.register(
     "Description" : "Keterangan",
     "Delete all rules" : "Padam semua peraturan",
     "Delete all rules? Added or changed rules will be lost." : "Padam semua peraturan? Peraturan yang ditambah atau diubah akan hilang.",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "Gantikan semua peraturan dengan peraturan lalai? Peraturan yang ditambah atau diubah akan hilang."
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Gantikan semua peraturan dengan peraturan lalai? Peraturan yang ditambah atau diubah akan hilang.",
+    "Clear All" : "Kosongkan semua",
+    "Reset to defaults" : "Tetapkan semula kepada lalai"
 },
 "nplurals=1; plural=0;");

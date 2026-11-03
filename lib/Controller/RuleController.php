@@ -64,8 +64,7 @@ class RuleController extends Controller {
 	 * @return JSONResponse
 	 */
 	public function reset() {
-		$this->ruleMapper->deleteAll();
-		$this->ruleMapper->populate();
+		$this->ruleMapper->reset();
 		return new JSONResponse();
 	}
 	

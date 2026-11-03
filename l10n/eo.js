@@ -27,6 +27,8 @@ OC.L10N.register(
     "Description" : "Priskribo",
     "Delete all rules" : "Forigi ĉiujn regulojn",
     "Delete all rules? Added or changed rules will be lost." : "Ĉu forigi ĉiujn regulojn? Aldonitaj aŭ ŝanĝitaj reguloj perdiĝos.",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "Ĉu anstataŭigi ĉiujn regulojn per la defaŭltaj reguloj? Aldonitaj aŭ ŝanĝitaj reguloj perdiĝos."
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Ĉu anstataŭigi ĉiujn regulojn per la defaŭltaj reguloj? Aldonitaj aŭ ŝanĝitaj reguloj perdiĝos.",
+    "Clear All" : "Vakigi ĉion",
+    "Reset to defaults" : "Restarigi la defaŭltojn"
 },
 "nplurals=2; plural=(n != 1);");

@@ -43,7 +43,28 @@ class RuleMapper extends Mapper {
 		$sql = 'DELETE FROM `*PREFIX*files_avir_status`';
 		return $this->executeStatement($sql);
 	}
-	
+
+	/**
+	 * Replace all rules with the default rules
+	 *
+	 * In einer Transaktion: Scheitert das Anlegen, bleiben die bisherigen
+	 * Regeln stehen. Ohne Regeln endet jeder Scan als „ungeprüft“, und
+	 * Uploads würden abgewiesen.
+	 *
+	 * @throws \Throwable
+	 */
+	public function reset() {
+		$this->db->beginTransaction();
+		try {
+			$this->deleteAll();
+			$this->populate();
+			$this->db->commit();
+		} catch (\Throwable $e) {
+			$this->db->rollBack();
+			throw $e;
+		}
+	}
+
 	/**
 	 * Find rule by id
 	 *

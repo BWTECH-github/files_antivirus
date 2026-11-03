@@ -30,6 +30,8 @@ OC.L10N.register(
     "Description" : "Mô tả",
     "Delete all rules" : "Xóa tất cả quy tắc",
     "Delete all rules? Added or changed rules will be lost." : "Xóa tất cả quy tắc? Các quy tắc đã thêm hoặc đã thay đổi sẽ bị mất.",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "Thay thế tất cả quy tắc bằng quy tắc mặc định? Các quy tắc đã thêm hoặc đã thay đổi sẽ bị mất."
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Thay thế tất cả quy tắc bằng quy tắc mặc định? Các quy tắc đã thêm hoặc đã thay đổi sẽ bị mất.",
+    "Clear All" : "Xóa tất cả",
+    "Reset to defaults" : "Đặt lại về mặc định"
 },
 "nplurals=1; plural=0;");

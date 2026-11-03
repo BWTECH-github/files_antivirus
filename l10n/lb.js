@@ -7,6 +7,8 @@ OC.L10N.register(
     "Description" : "Beschreiwung",
     "Delete all rules" : "All d'Reegele läschen",
     "Delete all rules? Added or changed rules will be lost." : "All d'Reegele läschen? Derbäigesate oder geännert Reegele gi verluer.",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "All d'Reegele duerch d'Standardreegelen ersetzen? Derbäigesate oder geännert Reegele gi verluer."
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "All d'Reegele duerch d'Standardreegelen ersetzen? Derbäigesate oder geännert Reegele gi verluer.",
+    "Clear All" : "Alles läschen",
+    "Reset to defaults" : "Op Standard zrécksetzen"
 },
 "nplurals=2; plural=(n != 1);");

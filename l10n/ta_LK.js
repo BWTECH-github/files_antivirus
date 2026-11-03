@@ -8,6 +8,8 @@ OC.L10N.register(
     "Description" : "விவரிப்பு",
     "Delete all rules" : "அனைத்து விதிகளையும் நீக்கு",
     "Delete all rules? Added or changed rules will be lost." : "அனைத்து விதிகளையும் நீக்கவா? சேர்க்கப்பட்ட அல்லது மாற்றப்பட்ட விதிகள் இழக்கப்படும்.",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "அனைத்து விதிகளையும் இயல்புநிலை விதிகளால் மாற்றவா? சேர்க்கப்பட்ட அல்லது மாற்றப்பட்ட விதிகள் இழக்கப்படும்."
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "அனைத்து விதிகளையும் இயல்புநிலை விதிகளால் மாற்றவா? சேர்க்கப்பட்ட அல்லது மாற்றப்பட்ட விதிகள் இழக்கப்படும்.",
+    "Clear All" : "அனைத்தையும் அழி",
+    "Reset to defaults" : "இயல்புநிலைக்கு மீட்டமை"
 },
 "nplurals=2; plural=(n != 1);");

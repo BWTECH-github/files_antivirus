@@ -12,7 +12,10 @@ Redesign-Linie.
 
 - „Alles säubern“ und „Auf Standard rücksetzen“ fragen vor dem Ändern der
   Regeln im Kerndialog nach; der Bestätigungsknopf nennt die Handlung,
-  Escape und „Abbrechen“ lassen die Regeln unverändert.
+  Escape und „Abbrechen“ lassen die Regeln unverändert. Der Fokus steht
+  zuerst auf „Abbrechen“, jede Bestätigung wirkt genau einmal.
+- „Auf Standard rücksetzen“ läuft auf dem Server in einer Transaktion.
+- Titel und Knöpfe der Rückfrage in allen Sprachen übersetzt.
 
 ## [1.3.14] - 2026-10-29
 

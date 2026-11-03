@@ -4,6 +4,8 @@
     "Description" : "বর্ণনা",
     "Delete all rules" : "সব নিয়ম মুছুন",
     "Delete all rules? Added or changed rules will be lost." : "সব নিয়ম মুছবেন? যোগ করা বা পরিবর্তিত নিয়মগুলো হারিয়ে যাবে।",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "সব নিয়ম ডিফল্ট নিয়ম দিয়ে প্রতিস্থাপন করবেন? যোগ করা বা পরিবর্তিত নিয়মগুলো হারিয়ে যাবে।"
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "সব নিয়ম ডিফল্ট নিয়ম দিয়ে প্রতিস্থাপন করবেন? যোগ করা বা পরিবর্তিত নিয়মগুলো হারিয়ে যাবে।",
+    "Clear All" : "সব মুছুন",
+    "Reset to defaults" : "ডিফল্টে রিসেট করুন"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

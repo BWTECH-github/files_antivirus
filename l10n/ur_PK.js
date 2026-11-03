@@ -6,6 +6,8 @@ OC.L10N.register(
     "Description" : "تصریح",
     "Delete all rules" : "تمام قواعد حذف کریں",
     "Delete all rules? Added or changed rules will be lost." : "تمام قواعد حذف کریں؟ شامل کیے گئے یا تبدیل کیے گئے قواعد ضائع ہو جائیں گے۔",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "تمام قواعد کو طے شدہ قواعد سے بدل دیں؟ شامل کیے گئے یا تبدیل کیے گئے قواعد ضائع ہو جائیں گے۔"
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "تمام قواعد کو طے شدہ قواعد سے بدل دیں؟ شامل کیے گئے یا تبدیل کیے گئے قواعد ضائع ہو جائیں گے۔",
+    "Clear All" : "سب صاف کریں",
+    "Reset to defaults" : "طے شدہ پر ری سیٹ کریں"
 },
 "nplurals=2; plural=(n != 1);");

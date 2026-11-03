@@ -27,6 +27,8 @@ OC.L10N.register(
     "Description" : "გვერდის დახასიათება",
     "Delete all rules" : "ყველა წესის წაშლა",
     "Delete all rules? Added or changed rules will be lost." : "წაიშალოს ყველა წესი? დამატებული ან შეცვლილი წესები დაიკარგება.",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "ჩანაცვლდეს ყველა წესი ნაგულისხმევი წესებით? დამატებული ან შეცვლილი წესები დაიკარგება."
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "ჩანაცვლდეს ყველა წესი ნაგულისხმევი წესებით? დამატებული ან შეცვლილი წესები დაიკარგება.",
+    "Clear All" : "ყველაფრის გასუფთავება",
+    "Reset to defaults" : "ნაგულისხმევზე დაბრუნება"
 },
 "nplurals=1; plural=0;");

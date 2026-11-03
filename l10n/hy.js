@@ -5,6 +5,8 @@ OC.L10N.register(
     "Description" : "Նկարագրություն",
     "Delete all rules" : "Ջնջել բոլոր կանոնները",
     "Delete all rules? Added or changed rules will be lost." : "Ջնջե՞լ բոլոր կանոնները։ Ավելացված կամ փոփոխված կանոնները կկորչեն։",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "Փոխարինե՞լ բոլոր կանոնները լռելյայն կանոններով։ Ավելացված կամ փոփոխված կանոնները կկորչեն։"
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "Փոխարինե՞լ բոլոր կանոնները լռելյայն կանոններով։ Ավելացված կամ փոփոխված կանոնները կկորչեն։",
+    "Clear All" : "Մաքրել բոլորը",
+    "Reset to defaults" : "Վերականգնել լռելյայնները"
 },
 "nplurals=2; plural=(n != 1);");

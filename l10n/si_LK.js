@@ -13,6 +13,8 @@ OC.L10N.register(
     "Description" : "විස්තරය",
     "Delete all rules" : "සියලු නීති මකන්න",
     "Delete all rules? Added or changed rules will be lost." : "සියලු නීති මකන්නද? එක් කළ හෝ වෙනස් කළ නීති නැති වේ.",
-    "Replace all rules with the default rules? Added or changed rules will be lost." : "සියලු නීති පෙරනිමි නීති මගින් ප්‍රතිස්ථාපනය කරන්නද? එක් කළ හෝ වෙනස් කළ නීති නැති වේ."
+    "Replace all rules with the default rules? Added or changed rules will be lost." : "සියලු නීති පෙරනිමි නීති මගින් ප්‍රතිස්ථාපනය කරන්නද? එක් කළ හෝ වෙනස් කළ නීති නැති වේ.",
+    "Clear All" : "සියල්ල හිස් කරන්න",
+    "Reset to defaults" : "පෙරනිමි වෙත යළි සකසන්න"
 },
 "nplurals=2; plural=(n != 1);");

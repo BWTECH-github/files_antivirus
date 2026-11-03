@@ -36,8 +36,11 @@ var antivirusSettings = antivirusSettings || {
 		return Object.prototype.hasOwnProperty.call(bekannt, text) ? bekannt[text] : text;
 	},
 
+	/**
+	 * @return {jqXHR} erfüllt, sobald die Tabelle aufgebaut ist
+	 */
 	init : function(){
-		$.get(OC.generateUrl('apps/files_antivirus/settings/rule/listall'),
+		return $.get(OC.generateUrl('apps/files_antivirus/settings/rule/listall'),
 			function onSuccess(response){
 				if (!response || !response.statuses){
 					return;
@@ -58,33 +61,81 @@ var antivirusSettings = antivirusSettings || {
 	 */
 	alleRegelnAendern : function(aktion, titel, frage, knopf){
 		// Sperre gegen Doppelklick: solange die Dialogvorlage beim ersten Mal
-		// noch lädt (sonst zwei Rückfragen übereinander) und solange die
-		// Anfrage läuft (zweimal Rücksetzen gleichzeitig legt die
-		// Standardregeln doppelt an)
+		// noch lädt (sonst zwei Rückfragen übereinander) und von der
+		// Bestätigung, bis die Tabelle neu steht (zweimal Rücksetzen
+		// gleichzeitig legt die Standardregeln doppelt an)
 		if (antivirusSettings.regelnBeschaeftigt) {
 			return;
 		}
 		antivirusSettings.regelnBeschaeftigt = true;
+		var release = function(){
+			antivirusSettings.regelnBeschaeftigt = false;
+		};
+		// Jede Rückfrage zählt nur einmal: Der Kerndialog blendet sich erst
+		// 200 ms nach dem Schließen aus, so lange nehmen seine Knöpfe weitere
+		// Klicks an (Doppelklick, gehaltene Eingabetaste).
+		var answered = false;
 		$.when(OC.dialogs.confirm(frage, titel, function(bestaetigt){
-			if (!bestaetigt) {
+			if (answered) {
+				return;
+			}
+			answered = true;
+			if (!bestaetigt || antivirusSettings.regelnBeschaeftigt) {
 				return;
 			}
 			antivirusSettings.regelnBeschaeftigt = true;
 			// Nach Zurücksetzen/Leeren die Tabelle ganz neu aufbauen (vorher
 			// blieben leere Zeilen stehen, weil nur die Zellen entfernt wurden)
-			$.post(OC.generateUrl('apps/files_antivirus/settings/rule/' + aktion),
-				function onSuccess(){
+			$.post(OC.generateUrl('apps/files_antivirus/settings/rule/' + aktion))
+				.done(function(){
 					$('#antivirus-statuses tbody').empty();
-					antivirusSettings.init();
-				}
-			).always(function(){
-				antivirusSettings.regelnBeschaeftigt = false;
-			});
+					antivirusSettings.init().always(release);
+				})
+				.fail(release);
 		}, true, t('core', 'Cancel'), knopf)).always(function(){
 			// Dialog steht (oder kam nicht zustande): ab hier fängt die
 			// modale Abdeckung weitere Klicks ab
-			antivirusSettings.regelnBeschaeftigt = false;
+			release();
+			antivirusSettings.defuseConfirmDialog();
 		});
+	},
+
+	/**
+	 * Der Kerndialog legt den Fokus auf den Bestätigungsknopf, und bei einer
+	 * gehaltenen Eingabetaste wäre jede Tastenwiederholung ein weiterer Klick –
+	 * die Handlung liefe ohne bewusste Bestätigung. Deshalb steht der Fokus
+	 * zuerst auf „Abbrechen“, und im Dialog wirkt die Eingabetaste nur beim
+	 * ersten Druck. Übergang, bis der Kern Gefahr-Rückfragen selbst so führt.
+	 */
+	defuseConfirmDialog : function(){
+		// Direkt nach dem Öffnen liegt der Fokus im neuen Dialog
+		var $dialog = $(document.activeElement).closest('.oc-dialog');
+		if (!$dialog.length) {
+			return;
+		}
+		$dialog.on('keydown', antivirusSettings.guardEnterKey);
+		$dialog.find('.oc-dialog-buttonrow button').first().trigger('focus');
+	},
+
+	/**
+	 * Eingabetaste an den Auslösern und in deren Rückfrage: Tastenwiederholungen
+	 * lösen nichts aus. Auf dem Kreuz schließt sie den Dialog – der Kern löst
+	 * dort sonst den zuletzt gewählten Knopf aus, also womöglich die Handlung.
+	 */
+	guardEnterKey : function(event){
+		if (event.which !== 13) {
+			return;
+		}
+		var repeated = !!(event.originalEvent && event.originalEvent.repeat);
+		var onCloseButton = $(event.target).is('.oc-dialog-close');
+		if (!repeated && !onCloseButton) {
+			return;
+		}
+		event.preventDefault();
+		event.stopPropagation();
+		if (onCloseButton && !repeated) {
+			$(event.target).trigger('click');
+		}
 	},
 
 	renderRow : function(data){
@@ -342,6 +393,9 @@ $(document).ready(function() {
 			antivirusSettings.init();
 		}
 	});
+
+	// Gehaltene Eingabetaste: nur der erste Druck öffnet die Rückfrage
+	$('#antivirus-reset, #antivirus-clear').on('keydown', antivirusSettings.guardEnterKey);
 
 	$('#antivirus-reset').on('click', function (){
 		antivirusSettings.alleRegelnAendern(
