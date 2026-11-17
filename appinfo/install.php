@@ -11,8 +11,11 @@
  * @license AGPL-3.0
  */
 
-$passed = \OC::$server->getConfig()->getAppValue('files_antivirus', 'autoprobe', false);
-if ($passed === false) {
+$config = \OC::$server->getConfig();
+$passed = $config->getAppValue('files_antivirus', 'autoprobe', false);
+// Nur proben, wenn noch kein Modus eingestellt ist: Eine vorhandene Einstellung (z. B. socket aus der
+// Bereitstellung oder einer früheren Installation) darf die automatische Erkennung nicht überschreiben
+if ($passed === false && $config->getAppValue('files_antivirus', 'av_mode', false) === false) {
 	$app = new \OCA\Files_Antivirus\AppInfo\Application();
 	$app->autoProbe();
 }
