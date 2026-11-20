@@ -29,6 +29,11 @@ class Version20180116142011 implements ISchemaMigration {
 	public function changeSchema(Schema $schema, array $options) {
 		$prefix = $options['tablePrefix'];
 		$table = $schema->getTable("{$prefix}files_antivirus");
+		// Altbestand: Die Tabelle aus einer früheren Installation hat die Spalte schon,
+		// ohne Prüfung bricht jede Neuinstallation an „etag already exists“ ab
+		if ($table->hasColumn('etag')) {
+			return;
+		}
 		$table->addColumn(
 			'etag',
 			/** @phan-suppress-next-line PhanDeprecatedClassConstant */

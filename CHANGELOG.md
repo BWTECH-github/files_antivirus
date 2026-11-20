@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [2.0.2] - 2026-11-20
+
+Redesign-Linie: übernimmt aus main 1.3.12.
+
+### Fixed
+
+- Neuinstallation über eine Alttabelle `oc_files_antivirus`, in der die Spalte `etag` schon stand, brach mit „column already exists“ ab. Beim Einschalten der App blieb die Instanz dadurch in Wartung. Migration Version20180116142011 legt die Spalte nur noch an, wenn sie fehlt.
+- Die automatische Erkennung des Scan-Modus bei der Installation überschreibt keinen schon eingestellten Modus mehr, z. B. socket aus der Bereitstellung.
+
 ## [2.0.1] - 2026-11-05
 
 ### Fixed
